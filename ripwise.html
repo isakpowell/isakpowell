@@ -500,6 +500,153 @@
     }
 
     .footer-links a:hover { opacity: 0.6; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .container,
+      .hero-inner,
+      .page-content,
+      .page-content-wide,
+      .impact-wrapper {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      /* Nav */
+      .nav-links {
+        display: none;
+      }
+
+      /* Hero */
+      .hero-image-placeholder {
+        height: 40vw;
+        min-height: 200px;
+        border-radius: 20px;
+      }
+
+      .hero-title {
+        letter-spacing: -1px;
+        margin-bottom: 20px;
+      }
+
+      .hero-bottom {
+        flex-direction: column;
+        gap: 40px;
+        padding-bottom: 60px;
+      }
+
+      .hero-desc {
+        max-width: 100%;
+      }
+
+      .hero-meta {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 16px;
+        border-top: 1.5px solid #e0e0e0;
+        padding-top: 24px;
+      }
+
+      .hero-meta > div {
+        flex: 1 1 45%;
+      }
+
+      /* Impact grid */
+      .impact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Sections */
+      .section {
+        padding-top: 64px;
+      }
+
+      .intro {
+        padding-top: 56px;
+        padding-bottom: 48px;
+      }
+
+      /* Meta row */
+      .meta-row {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .meta-item + .meta-item {
+        border-left: none;
+        border-top: 1.5px solid #e0e0e0;
+        padding-left: 0;
+        padding-top: 20px;
+      }
+
+      /* Full image */
+      .full-image {
+        height: 50vw;
+        min-height: 200px;
+        margin-top: 48px;
+      }
+
+      /* Two-col */
+      .two-col {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding-top: 64px;
+      }
+
+      .two-col-image {
+        height: 60vw;
+        min-height: 240px;
+      }
+
+      /* Image grid */
+      .image-grid {
+        grid-template-columns: 1fr;
+        margin-top: 48px;
+      }
+
+      .image-grid-tall {
+        height: 60vw;
+        min-height: 240px;
+      }
+
+      .image-grid-sm {
+        height: 48vw;
+        min-height: 180px;
+      }
+
+      /* Pull quote */
+      .pull-quote blockquote {
+        padding-left: 20px;
+      }
+
+      /* Divider */
+      .divider {
+        margin: 64px 0 0;
+      }
+
+      /* Next project */
+      .next-project {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 60px 0 0;
+      }
+
+      /* Footer */
+      .footer {
+        padding: 60px 20px 48px;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      /* Figma embed */
+      iframe[style*="height:600px"] {
+        height: 360px !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -531,7 +678,10 @@
       <div class="hero-bottom">
         <div class="hero-desc">
           <p>Rip currents are responsible for half of all swimming deaths on Australian beaches and over three quarters of annual rescues. Yet fewer than half of beachgoers can correctly identify one, even among those who consider themselves confident swimmers. RipWise is a beach kiosk that uses camera vision and machine learning to identify safe swimming zones in real time and deliver interactive rip safety education at the moment it matters most.</p>
-          <a href="https://ripwise.netlify.app/" target="_blank" class="hero-cta">Live demo ↗</a>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <a href="https://ripwise.netlify.app/" target="_blank" class="hero-cta">Live demo ↗</a>
+            <a href="ripwise/A4_Ripwise_presentation.pdf" target="_blank" class="hero-cta">View presentation ↗</a>
+          </div>
         </div>
         <div class="hero-meta">
           <div>

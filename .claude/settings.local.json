@@ -9,7 +9,8 @@
       "Bash(node screenshot.mjs http://localhost:3000/projects.html final)",
       "Bash(netstat -ano)",
       "Bash(cmd /c \"taskkill /F /IM node.exe\")",
-      "WebFetch(domain:isaacgrove.com)"
+      "WebFetch(domain:isaacgrove.com)",
+      "Bash(npm install -g wrangler)"
     ]
   }
 }

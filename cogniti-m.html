@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cogniti-m — Isak</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #111;
+    }
+
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+
+    /* ── Navbar ── */
+    nav { padding-top: 24px; }
+    nav .container { display: flex; justify-content: space-between; align-items: center; padding-top: 22px; padding-bottom: 22px; }
+    .nav-logo { height: 24px; }
+    .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+    .nav-links a { text-decoration: none; color: #111; font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 400; }
+    .nav-links a:hover { opacity: 0.6; }
+    .nav-btn { background: #1847d4; color: #fff !important; padding: 10px 22px; border-radius: 100px; }
+    .nav-btn:hover { opacity: 0.85 !important; }
+
+    /* ── Hero ── */
+    .hero { background: #ffffff; padding-top: 40px; }
+    .hero-inner { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+
+    .hero-image-wrap {
+      width: 100%;
+      height: 55vh;
+      border-radius: 32px;
+      overflow: hidden;
+      margin-bottom: 40px;
+      background: #1a0a4a;
+    }
+    .hero-image-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+
+    .hero-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(48px, 7vw, 96px); font-weight: 800; line-height: 1; letter-spacing: -2px; color: #111; margin-bottom: 32px; }
+    .hero-tagline { font-family: 'Instrument Serif', serif; font-size: clamp(24px, 3vw, 42px); color: #111; font-weight: 400; margin-bottom: 32px; line-height: 1.3; }
+    .hero-tagline .accent { color: #5B21B6; }
+    .hero-divider { height: 1px; background: #d0d0d0; margin-bottom: 40px; }
+
+    .hero-bottom { display: flex; justify-content: space-between; align-items: stretch; gap: 64px; padding-bottom: 80px; }
+    .hero-desc { flex: 1; max-width: 75%; display: flex; flex-direction: column; justify-content: space-between; }
+    .hero-desc p { font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.7; color: #333; margin-bottom: 32px; }
+
+    .hero-meta { display: flex; flex-direction: column; gap: 24px; }
+    .hero-meta-label { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; color: #111; margin-bottom: 6px; }
+    .hero-meta-value { font-family: 'Instrument Serif', serif; font-size: 17px; color: #555; line-height: 1.8; }
+
+    /* ── Page content ── */
+    .page-content { max-width: 860px; margin: 0 auto; padding: 0 40px; }
+    .page-content-wide { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+
+    /* ── Impact grid ── */
+    .impact-wrapper { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+    .impact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; border-radius: 20px; overflow: hidden; background: #f0f0f0; }
+    .impact-cell { background: #fafafa; padding: 48px 40px; }
+    .impact-number { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(44px, 5vw, 72px); font-weight: 800; letter-spacing: -2px; color: #5B21B6; line-height: 1; margin-bottom: 12px; }
+    .impact-desc { font-family: 'Inter', sans-serif; font-size: 15px; color: #555; line-height: 1.5; max-width: 200px; }
+
+    /* ── Sections ── */
+    .section { padding-top: 96px; }
+    .section-heading { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(36px, 4.5vw, 64px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.05; color: #111; margin-bottom: 32px; }
+    .section-body { font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.75; color: #444; max-width: 640px; }
+    .section-body + .section-body { margin-top: 20px; }
+
+    /* ── CTA button ── */
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      gap: 6px;
+      background: #5B21B6;
+      color: #fff;
+      font-family: 'Instrument Serif', serif;
+      font-size: 17px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .hero-cta:hover { opacity: 0.85; }
+
+    /* ── Full-width image ── */
+    .full-image { margin-top: 80px; width: 100%; height: 70vh; background: #e8e0f5; border-radius: 20px; overflow: hidden; }
+    .full-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── Two-col ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; padding-top: 96px; }
+    .two-col-image { background: #ede9f5; border-radius: 20px; height: 480px; overflow: hidden; }
+    .two-col-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── Feature list ── */
+    .feature-list { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+    .feature-item { display: flex; align-items: baseline; gap: 12px; font-family: 'Inter', sans-serif; font-size: 16px; color: #333; line-height: 1.5; }
+    .feature-dot { width: 6px; height: 6px; border-radius: 50%; background: #5B21B6; flex-shrink: 0; margin-top: 8px; }
+
+    /* ── Stat row ── */
+    .stat-row { display: flex; gap: 48px; margin-top: 40px; flex-wrap: wrap; }
+    .stat-item {}
+    .stat-number { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(36px, 4vw, 56px); font-weight: 800; letter-spacing: -1.5px; color: #5B21B6; line-height: 1; }
+    .stat-label { font-family: 'Inter', sans-serif; font-size: 14px; color: #666; margin-top: 6px; max-width: 160px; line-height: 1.4; }
+
+    /* ── Pull quote ── */
+    .pull-quote { padding-top: 96px; }
+    .pull-quote blockquote { font-family: 'Instrument Serif', serif; font-size: clamp(28px, 3.2vw, 48px); font-style: italic; color: #111; line-height: 1.35; border-left: 3px solid #5B21B6; padding-left: 40px; }
+
+    /* ── Team ── */
+    .team-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .team-pill { font-family: 'Instrument Serif', serif; font-size: 16px; color: #5B21B6; border: 1.5px solid #c4b5f5; border-radius: 100px; padding: 6px 18px; }
+    .team-pill.highlight { background: #5B21B6; color: #fff; border-color: #5B21B6; }
+
+    /* ── Phase table ── */
+    .phase-grid { display: flex; flex-direction: column; gap: 2px; margin-top: 40px; border-radius: 16px; overflow: hidden; }
+    .phase-row { display: grid; grid-template-columns: 120px 1fr auto; gap: 24px; background: #fafafa; padding: 24px 28px; align-items: start; }
+    .phase-row:nth-child(odd) { background: #f4f0fc; }
+    .phase-label { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #5B21B6; padding-top: 2px; }
+    .phase-desc { font-family: 'Inter', sans-serif; font-size: 15px; color: #333; line-height: 1.6; }
+    .phase-time { font-family: 'Instrument Serif', serif; font-size: 15px; color: #888; white-space: nowrap; }
+
+    /* ── Footer ── */
+    .footer { padding: 80px 40px 60px; text-align: center; }
+    .footer-text { font-family: 'Instrument Serif', serif; font-size: clamp(48px, 7.2vw, 140px); font-weight: 400; color: #111; line-height: 1.1; }
+    .footer-text .eyes { color: #1847d4; font-style: italic; }
+    .footer-links { display: flex; justify-content: flex-start; gap: 40px; margin-top: 32px; padding-bottom: 40px; }
+    .footer-links a { font-family: 'Instrument Serif', serif; font-size: 20px; color: #111; text-decoration: none; }
+    .footer-links a:hover { opacity: 0.6; }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .hero-inner, .container, .page-content, .page-content-wide, .impact-wrapper { padding: 0 20px; }
+      .hero-bottom { flex-direction: column; gap: 32px; }
+      .hero-desc { max-width: 100%; }
+      .two-col { grid-template-columns: 1fr; }
+      .impact-grid { grid-template-columns: 1fr; }
+      .stat-row { gap: 28px; }
+      .phase-row { grid-template-columns: 1fr; gap: 6px; }
+      .phase-time { display: none; }
+      .footer { padding: 48px 20px 32px; }
+      .footer-links { gap: 20px; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="container">
+      <a href="index.html"><img src="logo.png" alt="Isak." class="nav-logo"></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Work</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="https://www.linkedin.com/in/isak-powell/" target="_blank">LinkedIn ↗</a></li>
+        <li><a href="#" class="nav-btn">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-image-wrap">
+        <img src="cogniti-m/cogniti-m.jpg" alt="Cogniti-m — A Proposal for The University of Sydney & Microsoft">
+      </div>
+      <h1 class="hero-title">Cogniti-m</h1>
+      <p class="hero-tagline">A collaborative AI agent built to meet students <span class="accent">where they already work.</span></p>
+      <div class="hero-divider"></div>
+      <div class="hero-bottom">
+        <div class="hero-desc">
+          <p>Cogniti-m is a personalised collaborative AI agent that operates within Canvas group conversations, proposed to the University of Sydney and Microsoft. An extension of USYD's existing Cogniti platform, it helps student teams brainstorm, research, draft, and organise — all without leaving the LMS they use every day. The agent is aware of who's in the group, remembers the full conversation history, and leads rather than replaces student thinking.</p>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <svg width="20" height="20" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg"><rect x="0" y="0" width="10" height="10" fill="#F25022"/><rect x="11" y="0" width="10" height="10" fill="#7FBA00"/><rect x="0" y="11" width="10" height="10" fill="#00A4EF"/><rect x="11" y="11" width="10" height="10" fill="#FFB900"/></svg>
+            <span style="font-family:'Inter',sans-serif;font-size:17px;color:#888;">In collaboration with Microsoft</span>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:0;">
+            <a href="cogniti-m/Final Microsoft Presentation.pdf" target="_blank" class="hero-cta">View presentation ↗</a>
+            <a href="cogniti-m/Final Microsoft Presentation.pdf" download class="hero-cta">Download PDF ↓</a>
+          </div>
+        </div>
+        <div class="hero-meta">
+          <div>
+            <p class="hero-meta-label">Client</p>
+            <p class="hero-meta-value">University of Sydney<br>& Microsoft</p>
+          </div>
+          <div>
+            <p class="hero-meta-label">My Role</p>
+            <p class="hero-meta-value">Ideation<br>Figma Prototyping<br>UX/UI Design</p>
+          </div>
+          <div>
+            <p class="hero-meta-label">Type</p>
+            <p class="hero-meta-value">Research Report<br>& Product Proposal</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact -->
+  <div class="impact-wrapper">
+    <div class="impact-grid">
+      <div class="impact-cell">
+        <p class="impact-number">84%</p>
+        <p class="impact-desc">of Australian workers already use generative AI — graduates need to be ready</p>
+      </div>
+      <div class="impact-cell">
+        <p class="impact-number">56.3%</p>
+        <p class="impact-desc">of surveyed students felt AI's convenience negatively affected their idea generation</p>
+      </div>
+      <div class="impact-cell">
+        <p class="impact-number">73.4%</p>
+        <p class="impact-desc">of students see AI as a collaborator — not a tool — yet no platform supports this</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Problem -->
+  <div class="page-content">
+    <div class="section">
+      <h2 class="section-heading">Students want to collaborate with AI. Universities aren't letting them.</h2>
+      <p class="section-body">Given the fundamental impact that AI has on student learning, how can USYD encourage responsible collaboration between people and AI, develop skills of innovative idea generation, and ensure graduates enter the workforce as successful leaders?</p>
+      <p class="section-body">Our research found a clear contradiction: the vast majority of students already see AI as a collaborator and partner, not a shortcut — yet the university provides no structured environment for that collaboration to happen responsibly. Students study alone with AI, bypassing their peers entirely. Meanwhile lecturers encourage AI use but rarely integrate it into their course structures.</p>
+
+      <div class="stat-row">
+        <div class="stat-item">
+          <p class="stat-number">67</p>
+          <p class="stat-label">high-quality student survey responses</p>
+        </div>
+        <div class="stat-item">
+          <p class="stat-number">9</p>
+          <p class="stat-label">USYD lecturers interviewed across faculties</p>
+        </div>
+        <div class="stat-item">
+          <p class="stat-number">8/9</p>
+          <p class="stat-label">lecturers encourage AI — few have integrated it</p>
+        </div>
+        <div class="stat-item">
+          <p class="stat-number">18.8%</p>
+          <p class="stat-label">of students now study alone because they prefer AI over peers</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Research graphs -->
+  <div class="page-content-wide">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:64px;">
+      <div style="background:#fafafa;border-radius:20px;overflow:hidden;padding:8px;">
+        <img src="cogniti-m/cogniti-m_graph2.png" alt="Figure 3: Student views on AI in university" style="width:100%;display:block;">
+      </div>
+      <div style="background:#fafafa;border-radius:20px;overflow:hidden;padding:8px;">
+        <img src="cogniti-m/cogniti-m_graph3.png" alt="Figure 5: Student study habits" style="width:100%;display:block;">
+      </div>
+      <div style="background:#fafafa;border-radius:20px;overflow:hidden;padding:8px;">
+        <img src="cogniti-m/cogniti-m_graph.png" alt="Figure 6: Changes to study habits over the past year" style="width:100%;display:block;">
+      </div>
+    </div>
+  </div>
+
+  <!-- UI screenshot -->
+  <div class="page-content-wide">
+    <div class="full-image">
+      <img src="cogniti-m/UI - 3.jpg" alt="Cogniti-m mid-fidelity mockup — embedded in a Canvas group conversation">
+    </div>
+  </div>
+
+  <!-- The Solution -->
+  <div class="page-content">
+    <div class="section">
+      <h2 class="section-heading">Cogniti-m lives in the group chat</h2>
+      <p class="section-body">Cogniti-m is embedded directly into the Canvas LMS group tab — the space where student project teams already coordinate. Any team member can tag it, and its responses are visible to everyone. It retains the full conversation history and can draw on uploaded documents, so its guidance is always in context.</p>
+      <p class="section-body">The agent is programmed to lead and teach, not to complete work for students. It prompts productive discussion, challenges assumptions, and keeps academic integrity intact. It's an extension of USYD's existing Cogniti platform, meaning no new infrastructure — just a smarter group workspace.</p>
+    </div>
+  </div>
+
+  <!-- Two col — features -->
+  <div class="page-content-wide">
+    <div class="two-col">
+      <div>
+        <h2 class="section-heading">What it can do</h2>
+        <p class="section-body">Cogniti-m assists teams across the full lifecycle of a group project — from early ideation through to final submission.</p>
+        <div class="feature-list">
+          <div class="feature-item"><span class="feature-dot"></span>Rank and order group ideas, facilitate brainstorming sessions</div>
+          <div class="feature-item"><span class="feature-dot"></span>Check drafts for grammar, language, and ease of reading</div>
+          <div class="feature-item"><span class="feature-dot"></span>Summarise group conversations for members who missed them</div>
+          <div class="feature-item"><span class="feature-dot"></span>Create task lists, assign members, and schedule meetings</div>
+          <div class="feature-item"><span class="feature-dot"></span>Surface relevant research sources from the USYD Library</div>
+          <div class="feature-item"><span class="feature-dot"></span>Remember who said what — responses are contextually aware of all group members</div>
+        </div>
+      </div>
+      <div class="two-col-image">
+        <img src="cogniti-m/UI - 3.jpg" alt="Cogniti-m in a Canvas group conversation">
+      </div>
+    </div>
+  </div>
+
+  <!-- Pull quote -->
+  <div class="page-content">
+    <div class="pull-quote">
+      <blockquote>"AI can support their idea generation, but the core remains student-led."<br><span style="font-size:0.65em;font-style:normal;opacity:0.5;display:block;margin-top:16px;">— Professor Raffaele Ciriello, USYD</span></blockquote>
+    </div>
+  </div>
+
+  <!-- Technical feasibility -->
+  <div class="page-content">
+    <div class="section">
+      <h2 class="section-heading">We built it to prove it works</h2>
+      <p class="section-body">To validate the concept, a working prototype was built using Next.js and React chat components, with messages passed through Ably's publish/subscribe infrastructure and hosted on Vercel. The AI agent was given a custom system message defining its role, rules, and safety constraints — including a requirement to maintain academic integrity and never simply complete work for students.</p>
+      <p class="section-body">Each message is stored with the sender's initials so the AI can differentiate between team members. The full group conversation history — not just the most recent message — is sent with every request, giving the agent real context. The team tested all listed features and confirmed they worked as intended.</p>
+    </div>
+  </div>
+
+  <!-- Implementation -->
+  <div class="page-content">
+    <div class="section">
+      <h2 class="section-heading">From pilot to platform</h2>
+      <p class="section-body">The rollout is designed to start narrow and expand based on evidence. Final-year group project units are the ideal entry point — students are already collaborating under pressure, and the value of an AI group partner is most visible there.</p>
+    </div>
+  </div>
+
+  <div class="page-content-wide" style="padding-top:40px;">
+    <div class="phase-grid">
+      <div class="phase-row">
+        <span class="phase-label">Phase 1</span>
+        <span class="phase-desc">Planning with EI Team, USYD IT Services. Build Cogniti-m extension, integrate into Canvas, onboard staff, internal testing.</span>
+        <span class="phase-time">3–4 weeks</span>
+      </div>
+      <div class="phase-row">
+        <span class="phase-label">Phase 2</span>
+        <span class="phase-desc">Pilot launch across final-year group project units. Monitor usage, collect frequency metrics, identify engagement barriers.</span>
+        <span class="phase-time">Semester 1, 2026</span>
+      </div>
+      <div class="phase-row">
+        <span class="phase-label">Phase 3</span>
+        <span class="phase-desc">Post-semester student surveys and faculty interviews. EI team reviews AI outputs for accuracy, personalisation, and group dynamics.</span>
+        <span class="phase-time">6 weeks</span>
+      </div>
+      <div class="phase-row">
+        <span class="phase-label">Phase 4</span>
+        <span class="phase-desc">Expand to additional units and year groups. Continued tracking, end-of-unit feedback cycles, and ongoing improvements.</span>
+        <span class="phase-time">Semester 2, 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team -->
+  <div class="page-content">
+    <div class="section">
+      <h2 class="section-heading">Six people, one proposal</h2>
+      <p class="section-body">Cogniti-m was developed as a group research proposal for a Microsoft-partnered USYD unit. Isak led ideation and Figma prototyping, designing the low-to-mid fidelity mockups that brought the concept to life visually.</p>
+      <div class="team-row">
+        <span class="team-pill highlight">Isak Powell</span>
+        <span class="team-pill">Angela Fu</span>
+        <span class="team-pill">Gabriella Di Mento</span>
+        <span class="team-pill">Chantal Kander</span>
+        <span class="team-pill">Max Schickinger</span>
+        <span class="team-pill">Rachel Chen</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer page-content-wide">
+    <div style="height:1.5px;margin-top:96px;margin-bottom:60px;background-image:repeating-linear-gradient(to right,#111 0px,#111 24px,transparent 24px,transparent 36px);"></div>
+    <p class="footer-text">Build a world your <span class="eyes">eyes</span> deserve</p>
+    <div class="footer-links">
+      <a href="index.html">Work</a>
+      <a href="photography.html">Photography</a>
+      <a href="https://www.linkedin.com/in/isak-powell/" target="_blank">LinkedIn</a>
+      <a href="#">Contact</a>
+    </div>
+  </footer>
+
+</body>
+</html>
