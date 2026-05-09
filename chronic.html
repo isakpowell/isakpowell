@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favi.svg" type="image/svg+xml">
+  <title>Chronic — Isak</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #111;
+      cursor: none;
+    }
+
+    *, a, button, input, [role="button"] { cursor: none; }
+
+    #cursor {
+      position: fixed;
+      width: 22px;
+      height: 22px;
+      background: rgba(0,0,0,0.75);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: width 0.15s ease, height 0.15s ease;
+    }
+
+    body:has(a:hover) #cursor,
+    body:has(button:hover) #cursor {
+      width: 38px;
+      height: 38px;
+    }
+
+    /* ── Shared layout ── */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ── Navbar ── */
+    nav {
+      padding-top: 24px;
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 22px;
+      padding-bottom: 22px;
+    }
+
+    .nav-logo {
+      height: 120px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #111;
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .nav-links a:hover { opacity: 0.6; }
+
+    .nav-btn {
+      background: #1847d4;
+      color: #fff !important;
+      padding: 10px 22px;
+      border-radius: 100px;
+    }
+
+    .nav-btn:hover { opacity: 0.85 !important; }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      position: relative;
+      z-index: 1001;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #111;
+      border-radius: 2px;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      z-index: 1000;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 40px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .nav-overlay.open {
+      display: flex;
+      opacity: 1;
+    }
+    .nav-overlay ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .nav-overlay ul li {
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .nav-overlay ul li:first-child {
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+    .nav-overlay ul li a {
+      display: block;
+      padding: 22px 0;
+      text-decoration: none;
+      color: #111;
+      font-family: 'Inter', sans-serif;
+      font-size: 28px;
+      font-weight: 400;
+    }
+    .nav-overlay ul li a:active { opacity: 0.5; }
+
+    /* ── Hero ── */
+    .hero {
+      background: #ffffff;
+      padding-top: 40px;
+    }
+
+    .hero-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .hero-image-placeholder {
+      width: 100%;
+      height: 55vh;
+      background: #1a1a1a;
+      border-radius: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 40px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-placeholder-text {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(80px, 14vw, 200px);
+      font-weight: 800;
+      color: rgba(255,255,255,0.06);
+      letter-spacing: -4px;
+      user-select: none;
+    }
+
+    .hero-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(48px, 7vw, 96px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -2px;
+      color: #111;
+      margin-bottom: 32px;
+    }
+
+    .hero-tagline {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(24px, 3vw, 42px);
+      color: #111;
+      font-weight: 400;
+      margin-bottom: 32px;
+      line-height: 1.3;
+    }
+
+    .hero-tagline .accent {
+      color: #1B8CC4;
+      font-style: italic;
+    }
+
+    .hero-divider {
+      height: 1px;
+      background: #d0d0d0;
+      margin-bottom: 40px;
+    }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      gap: 64px;
+      padding-bottom: 80px;
+    }
+
+    .hero-desc {
+      flex: 1;
+      max-width: 75%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-desc p {
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      color: #333;
+      margin-bottom: 32px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      gap: 6px;
+      background: #1B8CC4;
+      color: #fff;
+      font-family: 'Instrument Serif', serif;
+      font-size: 17px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .hero-cta:hover { opacity: 0.85; }
+
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .hero-meta-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 6px;
+    }
+
+    .hero-meta-value {
+      font-family: 'Instrument Serif', serif;
+      font-size: 17px;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    /* ── Page content ── */
+    .page-content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .page-content-wide {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ── Intro ── */
+    .intro {
+      padding-top: 80px;
+      padding-bottom: 72px;
+    }
+
+    .intro-text {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(22px, 2.4vw, 32px);
+      line-height: 1.55;
+      color: #111;
+      font-weight: 400;
+      margin-bottom: 56px;
+    }
+
+    /* ── Metadata ── */
+    .meta-row {
+      display: flex;
+      gap: 0;
+      border-top: 1.5px solid #e0e0e0;
+      border-bottom: 1.5px solid #e0e0e0;
+      padding: 28px 0;
+    }
+
+    .meta-item {
+      flex: 1;
+      padding-right: 32px;
+    }
+
+    .meta-item + .meta-item {
+      border-left: 1.5px solid #e0e0e0;
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+
+    .meta-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 8px;
+    }
+
+    .meta-value {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: #111;
+      line-height: 1.6;
+    }
+
+    /* ── Section ── */
+    .section {
+      padding-top: 96px;
+      padding-bottom: 0;
+    }
+
+    .section-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #1B8CC4;
+      margin-bottom: 20px;
+    }
+
+    .section-heading {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(36px, 4.5vw, 64px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.05;
+      color: #111;
+      margin-bottom: 32px;
+    }
+
+    .section-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
+      line-height: 1.75;
+      color: #444;
+      max-width: 640px;
+    }
+
+    .section-body + .section-body {
+      margin-top: 20px;
+    }
+
+    /* ── Drops grid ── */
+    .drops-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 80px;
+    }
+
+    .drop-card {
+      background: #eaf5fb;
+      border-radius: 20px;
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .drop-number {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #1B8CC4;
+    }
+
+    .drop-name {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1;
+      color: #111;
+    }
+
+    .drop-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #555;
+      margin-top: auto;
+    }
+
+    .drop-placeholder {
+      background: #1a1a1a;
+      border-radius: 12px;
+      height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .drop-placeholder span {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ── Impact metrics ── */
+    .impact-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .impact {
+      padding-top: 96px;
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #c8dfe8;
+    }
+
+    .impact-cell {
+      background: #f0f8fd;
+      padding: 48px 40px;
+    }
+
+    .impact-number {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(44px, 5vw, 72px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      color: #1B8CC4;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .impact-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: #555;
+      line-height: 1.5;
+      max-width: 200px;
+    }
+
+    /* ── Full-width image ── */
+    .full-image {
+      margin-top: 80px;
+      width: 100%;
+      height: 60vh;
+      background: #1a1a1a;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .full-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+
+    /* ── Two-col layout ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+      padding-top: 96px;
+    }
+
+    .two-col-image {
+      background: #eaf5fb;
+      border-radius: 20px;
+      height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .two-col-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+
+    /* ── Pull quote ── */
+    .pull-quote {
+      padding-top: 96px;
+      padding-bottom: 0;
+    }
+
+    .pull-quote blockquote {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(28px, 3.2vw, 48px);
+      font-style: italic;
+      color: #111;
+      line-height: 1.35;
+      border-left: 3px solid #1B8CC4;
+      padding-left: 40px;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1.5px;
+      margin: 96px 0 0;
+      background-image: repeating-linear-gradient(to right, #111 0px, #111 24px, transparent 24px, transparent 36px);
+    }
+
+    /* ── Next project ── */
+    .next-project {
+      padding: 80px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .next-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 12px;
+    }
+
+    .next-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(36px, 5vw, 80px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      color: #111;
+      line-height: 1;
+      text-decoration: none;
+      display: block;
+      transition: opacity 0.2s;
+    }
+
+    .next-title:hover { opacity: 0.5; }
+
+    .next-arrow {
+      font-size: 48px;
+      color: #111;
+      line-height: 1;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 80px 40px 60px;
+      text-align: center;
+    }
+
+    .footer-text {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(48px, 7.2vw, 140px);
+      font-weight: 400;
+      color: #111;
+      line-height: 1.1;
+    }
+
+    .footer-text .eyes {
+      color: #1847d4;
+      font-style: italic;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: flex-start;
+      gap: 40px;
+      margin-top: 32px;
+      padding-bottom: 40px;
+    }
+
+    .footer-links a {
+      font-family: 'Instrument Serif', serif;
+      font-size: 20px;
+      color: #111;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover { opacity: 0.6; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .container,
+      .hero-inner,
+      .page-content,
+      .page-content-wide,
+      .impact-wrapper {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      nav { padding-top: 8px; position: relative; }
+      .nav-hamburger { display: flex; }
+      .nav-links { display: none; }
+
+      .hero-image-placeholder {
+        height: 50vw;
+        min-height: 200px;
+        border-radius: 20px;
+      }
+
+      .hero-title { letter-spacing: -1px; margin-bottom: 20px; }
+
+      .hero-bottom {
+        flex-direction: column;
+        gap: 40px;
+        padding-bottom: 60px;
+      }
+
+      .hero-desc { max-width: 100%; }
+
+      .hero-meta {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 16px;
+        border-top: 1.5px solid #e0e0e0;
+        padding-top: 24px;
+      }
+
+      .hero-meta > div { flex: 1 1 45%; }
+
+      .drops-grid {
+        grid-template-columns: 1fr;
+        margin-top: 48px;
+      }
+
+      .impact-grid { grid-template-columns: 1fr; }
+
+      .section { padding-top: 64px; }
+
+      .intro {
+        padding-top: 56px;
+        padding-bottom: 48px;
+      }
+
+      .meta-row {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .meta-item + .meta-item {
+        border-left: none;
+        border-top: 1.5px solid #e0e0e0;
+        padding-left: 0;
+        padding-top: 20px;
+      }
+
+      .full-image {
+        height: 56vw;
+        min-height: 200px;
+        margin-top: 48px;
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding-top: 64px;
+      }
+
+      .two-col-image {
+        height: 60vw;
+        min-height: 240px;
+      }
+
+      .pull-quote blockquote { padding-left: 20px; }
+
+      .divider { margin: 64px 0 0; }
+
+      .next-project {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 60px 0 0;
+      }
+
+      .footer {
+        padding: 60px 20px 48px;
+      }
+
+      .footer-links {
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="container">
+      <a href="index.html"><img src="blinking_isak_logo.gif" alt="Isak." class="nav-logo"></a>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Work</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="https://www.linkedin.com/in/isak-powell/" target="_blank">LinkedIn ↗</a></li>
+        <li><a href="#" class="nav-btn">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Mobile nav overlay -->
+  <div class="nav-overlay" id="nav-overlay">
+    <ul>
+      <li><a href="index.html">Work</a></li>
+      <li><a href="photography.html">Photography</a></li>
+      <li><a href="https://www.linkedin.com/in/isak-powell/" target="_blank">LinkedIn ↗</a></li>
+    </ul>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-image-placeholder">
+        <img src="chronic/621488553_18077176811348738_7670996084101447386_n.jpeg" alt="Chronic" style="width:100%;height:100%;object-fit:cover;border-radius:32px;">
+      </div>
+      <h1 class="hero-title">Chronic</h1>
+      <p class="hero-tagline">A clothing brand built for the <span class="accent">streets</span>, inspired by the skate culture we grew up in.</p>
+      <div class="hero-divider"></div>
+      <div class="hero-bottom">
+        <div class="hero-desc">
+          <p>Chronic was a skate-inspired clothing startup co-founded with Max. We looked to brands like Butter Goods, Bronze 56k, and Passport to shape a visual language that felt authentic to the skate niche: raw, minimal, and unapologetically niche. Over the course of the brand we released three drops, growing from tees only to tees and hoodies, building a small but loyal following with each release.</p>
+          <a href="https://www.instagram.com/chronicaustralia/" target="_blank" class="hero-cta">Instagram ↗</a>
+        </div>
+        <div class="hero-meta">
+          <div>
+            <p class="hero-meta-label">Collaborator</p>
+            <p class="hero-meta-value">Max</p>
+          </div>
+          <div>
+            <p class="hero-meta-label">Discipline</p>
+            <p class="hero-meta-value">Brand Identity<br>Art Direction<br>Product Design<br>E-commerce</p>
+          </div>
+          <div>
+            <p class="hero-meta-label">Drops</p>
+            <p class="hero-meta-value">3 total</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instagram feed -->
+  <div style="max-width:1400px;margin:64px auto 0;padding:0 40px;">
+    <p style="font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.14em;color:#888;margin-bottom:24px;">@chronicaustralia</p>
+    <!-- Elfsight Instagram Feed | Untitled Instagram Feed -->
+    <script src="https://elfsightcdn.com/platform.js" async></script>
+    <div class="elfsight-app-eba42baa-3b97-4a6a-a094-019e636ef43e" data-elfsight-app-lazy></div>
+  </div>
+
+  <!-- Intro -->
+  <div class="page-content">
+    <div class="intro">
+      <p class="intro-text">We wanted to make clothes we'd actually wear. Not trend-chasing streetwear, not watered-down skate pastiche — something honest, considered, and built for people who know the difference.</p>
+      <div class="meta-row">
+        <div class="meta-item">
+          <p class="meta-label">Category</p>
+          <p class="meta-value">Fashion / Apparel</p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-label">Niche</p>
+          <p class="meta-value">Skate & streetwear</p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-label">Inspiration</p>
+          <p class="meta-value">Butter Goods, Bronze 56k, Passport</p>
+        </div>
+        <div class="meta-item">
+          <p class="meta-label">Products</p>
+          <p class="meta-value">T-shirts, Hoodies</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Brand -->
+  <div class="page-content">
+    <div class="section">
+      <h2 class="section-heading">Born from the skate niche</h2>
+      <p class="section-body">The skate clothing niche has its own rules. Graphics that reference the culture without screaming it. Fits that work on a board and off it. A palette that leans earthy, faded, worn-in. We studied what made brands like Butter Goods resonate: the restraint, the craft, the sense that every piece was considered. We used that as our benchmark.</p>
+      <p class="section-body" style="margin-top:20px;">Chronic's identity was built around that same quiet confidence. The name, the logo, the colour choices, the way copy read on a hang tag. All of it pointed back to one question: does this feel like it belongs in the culture, or does it feel like it's trying to?</p>
+    </div>
+  </div>
+
+  <!-- Full-width image placeholder -->
+  <div class="page-content-wide">
+    <div class="full-image">
+      <img src="chronic/1700110823843.jpg" alt="Chronic — model in white tee by a ute in an open paddock">
+    </div>
+  </div>
+
+  <!-- The Drops -->
+  <div class="page-content-wide">
+    <div class="section">
+    </div>
+    <div class="drops-grid">
+      <div class="drop-card">
+        <p class="drop-number">Drop 01</p>
+        <div class="drop-placeholder">
+          <img src="chronic/Woolies bag drop 5 1.jpg" alt="Drop 01 — Woolies Bag Tee" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
+        </div>
+        <p class="drop-name">Woolies Bag Tee</p>
+        <p class="drop-desc">The first release. Kept it tight: a single run of tees to test the market and prove the concept. Clean graphics, quality blanks, small batch.</p>
+      </div>
+      <div class="drop-card">
+        <p class="drop-number">Drop 02</p>
+        <div class="drop-placeholder">
+          <img src="chronic/F81A359E-F1EE-4903-883D-96BF18BCCC9E.JPG" alt="Drop 02 — Chronic ghost tee flat lay" style="width:100%;height:100%;object-fit:cover;border-radius:12px;">
+        </div>
+        <p class="drop-name">Tees</p>
+        <p class="drop-desc">Built on what we learned from the first drop. Refined graphics, tightened the sizing, pushed the brand voice harder in the campaign.</p>
+      </div>
+      <div class="drop-card">
+        <p class="drop-number">Drop 03</p>
+        <div class="drop-placeholder">
+          <img src="chronic/IMG_1187 1.jpg" alt="Drop 03 — Chronic hoodies campaign" style="width:100%;height:100%;object-fit:cover;border-radius:12px;object-position:top;">
+        </div>
+        <p class="drop-name">Tees & Hoodies</p>
+        <p class="drop-desc">The biggest release. We added hoodies for the first time: heavier weight, embroidered detailing, the kind of piece you hold onto.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lifestyle image grid -->
+  <div class="page-content-wide" style="margin-top:16px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+      <div style="background:#111;border-radius:20px;overflow:hidden;height:380px;">
+        <img src="chronic/IMG_2087.jpg" alt="Chronic tees worn at the guerrilla garden" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+      </div>
+      <div style="background:#111;border-radius:20px;overflow:hidden;height:380px;">
+        <img src="chronic/square.jpg" alt="Chronic tee — industrial lookbook" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div style="background:#111;border-radius:20px;overflow:hidden;height:380px;">
+        <img src="chronic/IMG_1983.jpg" alt="Chronic tee — industrial warehouse shot" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+    </div>
+  </div>
+
+  <!-- Impact -->
+  <div class="impact-wrapper">
+    <div class="impact">
+      <div class="impact-grid">
+        <div class="impact-cell">
+          <p class="impact-number">3</p>
+          <p class="impact-desc">Drops completed from concept to delivery</p>
+        </div>
+        <div class="impact-cell">
+          <p class="impact-number">2</p>
+          <p class="impact-desc">Product categories — tees and hoodies</p>
+        </div>
+        <div class="impact-cell">
+          <p class="impact-number">0→1</p>
+          <p class="impact-desc">Built a brand, supply chain, and e-commerce from nothing</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Two-col — design approach -->
+  <div class="page-content-wide">
+    <div class="two-col">
+      <div class="two-col-text">
+        <h2 class="section-heading">Every detail earns its place</h2>
+        <p class="section-body">Graphic design for clothing lives and dies on restraint. We looked hard at what made reference brands work — Butter Goods in particular, noticing what they didn't do as much as what they did. No overloaded back prints. No trying-too-hard slogans. Graphics that rewarded close inspection without demanding attention from across the room.</p>
+        <p class="section-body" style="margin-top:20px;">Chronic's palette stayed earthy and muted throughout. The logo was designed to work at every scale, from a chest hit to a woven label. Drop by drop, the visual language sharpened as we understood our customer better.</p>
+      </div>
+      <div class="two-col-image">
+        <img src="chronic/sale.jpg" alt="Chronic end of winter sale campaign" style="width:100%;height:100%;object-fit:cover;border-radius:20px;">
+      </div>
+    </div>
+  </div>
+
+  <!-- Pull quote -->
+  <div class="page-content">
+    <div class="pull-quote">
+      <blockquote>"Does this feel like it belongs in the culture, or does it feel like it's trying to?"</blockquote>
+    </div>
+  </div>
+
+  <!-- What we learned -->
+  <div class="page-content">
+    <div class="section">
+      <h2 class="section-heading">Running a brand teaches you fast</h2>
+      <p class="section-body">Chronic was the first time I owned every part of a product: sourcing blanks, managing print runs, building an online store, writing product copy, photographing the goods, and handling fulfilment. The gap between designing something and actually getting it into people's hands is enormous, and every drop made us faster at closing it.</p>
+      <p class="section-body" style="margin-top:20px;">By drop three we had a proper process: design locked two months before release, blanks ordered early, photography planned with a consistent aesthetic. The brand grew with each drop not just in product range but in confidence. We knew who Chronic was.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer page-content-wide">
+    <div style="height:1.5px;margin-bottom:60px;background-image:repeating-linear-gradient(to right,#111 0px,#111 24px,transparent 24px,transparent 36px);"></div>
+    <p class="footer-text">Build a world your <span class="eyes">eyes</span> deserve</p>
+    <div class="footer-links">
+      <a href="index.html">Work</a>
+      <a href="photography.html">Photography</a>
+      <a href="https://www.instagram.com/chronicaustralia/" target="_blank">Chronic ↗</a>
+      <a href="https://www.linkedin.com/in/isak-powell/" target="_blank">LinkedIn</a>
+      <a href="#">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('nav-hamburger');
+    const overlay = document.getElementById('nav-overlay');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      overlay.classList.toggle('open');
+      document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+    });
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+  </script>
+</body>
+</html>

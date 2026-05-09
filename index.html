@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favi.svg" type="image/svg+xml">
   <title>Isak</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,12 +15,33 @@
       box-sizing: border-box;
     }
 
+    html { scroll-behavior: smooth; }
+
     body {
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
-      background:
-        linear-gradient(to bottom, transparent 30vh, #ffffff 65vh),
-        radial-gradient(ellipse at 20% 30%, rgba(90, 170, 235, 0.47) 26%, rgba(238, 242, 153, 0.57) 72%, #ffffff 100%);
+      background: #ffffff;
+      cursor: none;
+    }
+
+    *, a, button, input, [role="button"] { cursor: none; }
+
+    #cursor {
+      position: fixed;
+      width: 22px;
+      height: 22px;
+      background: rgba(0,0,0,0.75);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: width 0.15s ease, height 0.15s ease;
+    }
+
+    body:has(a:hover) #cursor,
+    body:has(button:hover) #cursor {
+      width: 38px;
+      height: 38px;
     }
 
     /* ── Shared layout ── */
@@ -32,6 +54,7 @@
     /* ── Navbar ── */
     nav {
       padding-top: 24px;
+      position: relative;
     }
 
     nav .container {
@@ -43,7 +66,7 @@
     }
 
     .nav-logo {
-      height: 24px;
+      height: 120px;
     }
 
     .nav-links {
@@ -72,6 +95,107 @@
 
     .nav-btn:hover { opacity: 0.85 !important; }
 
+    .hover-ul {
+      font-style: italic;
+      position: relative;
+      background-image: linear-gradient(rgba(24,71,212,0.1), rgba(24,71,212,0.1));
+      background-position: 0% 50%;
+      background-repeat: no-repeat;
+      background-size: 0% 88%;
+      transition: background-size 0.45s ease;
+      border-radius: 3px;
+    }
+    .tagline:hover .hover-ul {
+      background-size: 100% 88%;
+    }
+
+    .tag-tip {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      background: #111;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 500;
+      white-space: nowrap;
+      padding: 5px 12px;
+      border-radius: 100px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      z-index: 10;
+    }
+    .hover-ul:hover .tag-tip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      position: relative;
+      z-index: 1001;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #111;
+      border-radius: 2px;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      z-index: 1000;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 40px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .nav-overlay.open {
+      display: flex;
+      opacity: 1;
+    }
+    .nav-overlay ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .nav-overlay ul li {
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .nav-overlay ul li:first-child {
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+    .nav-overlay ul li a {
+      display: block;
+      padding: 22px 0;
+      text-decoration: none;
+      color: #111;
+      font-family: 'Inter', sans-serif;
+      font-size: 28px;
+      font-weight: 400;
+    }
+    .nav-overlay ul li a:active { opacity: 0.5; }
+
     /* ── Page content ── */
     .page-content {
       max-width: 1400px;
@@ -81,8 +205,8 @@
     }
 
     .center-wrap {
+      max-width: 1060px;
       margin: 0 auto;
-      width: fit-content;
     }
 
     /* ── Hero ── */
@@ -161,7 +285,7 @@
     }
 
     .ai-label-isak .dot {
-      color: #DC7216;
+      color: #1847d4;
     }
 
     .ai-label-ai {
@@ -176,7 +300,7 @@
     .ai-input {
       width: 100%;
       padding: 14px 22px;
-      border: 1.5px solid #b8c0b0;
+      border: 1.5px solid #c5cff7;
       border-radius: 100px;
       font-family: 'Inter', sans-serif;
       font-size: 15px;
@@ -201,8 +325,8 @@
       width: 100%;
       margin-top: 12px;
       padding: 20px 24px;
-      background: #FEFCE8;
-      border: 1.5px solid #e07820;
+      background: #eff3ff;
+      border: 1.5px solid #c5cff7;
       border-radius: 16px;
       font-family: 'Inter', sans-serif;
       font-size: 15px;
@@ -248,7 +372,7 @@
     .ai-thinking {
       font-size: 13px;
       font-weight: 700;
-      color: #e07820;
+      color: #1847d4;
       display: flex;
       align-items: center;
       gap: 1px;
@@ -503,10 +627,11 @@
       .center-wrap { width: 100%; }
       .hero { margin: 0 -20px; padding: 0 20px; }
 
+      .tagline { font-size: 28px !important; }
+
       nav { padding-top: 8px; }
-      .nav-links { gap: 14px; }
-      .nav-links a { font-size: 14px; }
-      .nav-btn { padding: 8px 14px; }
+      .nav-hamburger { display: flex; }
+      .nav-links { display: none; }
 
       /* Hero */
       .hero {
@@ -571,131 +696,43 @@
 </head>
 <body>
 
+  <div id="cursor"></div>
+
   <!-- Navbar -->
   <nav>
     <div class="container">
-      <img src="logo.png" alt="Isak." class="nav-logo">
+      <img src="blinking_isak_logo.gif" alt="Isak." class="nav-logo">
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
       <ul class="nav-links">
-        <li><a href="index.html">Work</a></li>
+        <li><a href="#work">Work</a></li>
         <li><a href="photography.html">Photography</a></li>
         <li><a href="https://www.linkedin.com/in/isak-powell/" target="_blank">LinkedIn ↗</a></li>
-        <li><a href="#" class="nav-btn">Contact</a></li>
       </ul>
     </div>
   </nav>
+
+  <!-- Mobile full-page nav overlay -->
+  <div class="nav-overlay" id="nav-overlay">
+    <ul>
+      <li><a href="index.html">Work</a></li>
+      <li><a href="photography.html">Photography</a></li>
+      <li><a href="https://www.linkedin.com/in/isak-powell/" target="_blank">LinkedIn ↗</a></li>
+    </ul>
+  </div>
 
   <div class="page-content">
     <div class="center-wrap">
 
       <!-- Hero -->
       <section class="hero">
-        <div class="hero-card">
-          <svg id="hero-eye" width="200" height="130" viewBox="0 0 200 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <clipPath id="eye-clip">
-                <path d="M 15 68 C 55 30,145 30,185 68 C 145 100,55 100,15 68 Z"/>
-              </clipPath>
-              <radialGradient id="iris-grad" cx="50%" cy="42%" r="50%">
-                <stop offset="0%"   stop-color="#cce8ff"/>
-                <stop offset="28%"  stop-color="#4db0e8"/>
-                <stop offset="62%"  stop-color="#1a6bbf"/>
-                <stop offset="100%" stop-color="#092e6b"/>
-              </radialGradient>
-              <radialGradient id="pupil-grad" cx="36%" cy="36%" r="64%">
-                <stop offset="0%"   stop-color="#2d2d2d"/>
-                <stop offset="100%" stop-color="#000"/>
-              </radialGradient>
-              <radialGradient id="sclera-grad" cx="42%" cy="40%" r="58%">
-                <stop offset="0%"   stop-color="#fff"/>
-                <stop offset="100%" stop-color="#ddd7ce"/>
-              </radialGradient>
-            </defs>
-
-            <!-- Eye contents — blinks via CSS animation -->
-            <g id="eye-inner" clip-path="url(#eye-clip)">
-              <!-- Sclera -->
-              <ellipse cx="100" cy="68" rx="90" ry="40" fill="url(#sclera-grad)"/>
-              <!-- Iris base -->
-              <circle cx="100" cy="68" r="32" fill="url(#iris-grad)"/>
-              <!-- Iris fiber lines (12 radial) -->
-              <g stroke="#1a5f9a" stroke-width="0.7" opacity="0.28">
-                <line x1="108" y1="68" x2="130" y2="68"/>
-                <line x1="107.4" y1="71.1" x2="127.7" y2="79.5"/>
-                <line x1="105.7" y1="73.7" x2="121.2" y2="89.2"/>
-                <line x1="100" y1="76" x2="100" y2="98"/>
-                <line x1="94.3" y1="73.7" x2="78.8" y2="89.2"/>
-                <line x1="92.6" y1="71.1" x2="72.3" y2="79.5"/>
-                <line x1="92" y1="68" x2="70" y2="68"/>
-                <line x1="92.6" y1="64.9" x2="72.3" y2="56.5"/>
-                <line x1="94.3" y1="62.3" x2="78.8" y2="46.8"/>
-                <line x1="100" y1="60" x2="100" y2="38"/>
-                <line x1="105.7" y1="62.3" x2="121.2" y2="46.8"/>
-                <line x1="107.4" y1="64.9" x2="127.7" y2="56.5"/>
-              </g>
-              <!-- Collarette ring -->
-              <circle cx="100" cy="68" r="20" fill="none" stroke="#6bbde8" stroke-width="0.8" opacity="0.45"/>
-              <!-- Limbal ring -->
-              <circle cx="100" cy="68" r="32" fill="none" stroke="#061a45" stroke-width="3" opacity="0.7"/>
-              <!-- Pupil -->
-              <circle id="eye-pupil" cx="100" cy="68" r="14" fill="url(#pupil-grad)"/>
-              <!-- Main highlight -->
-              <ellipse cx="108" cy="59" rx="5.5" ry="4" fill="white" opacity="0.88" transform="rotate(-22 108 59)"/>
-              <!-- Secondary highlight -->
-              <circle cx="92" cy="76" r="2.5" fill="white" opacity="0.42"/>
-              <!-- Shadow under upper lid -->
-              <path d="M 15 68 C 55 30,145 30,185 68 C 145 36,55 36,15 68 Z" fill="#000" opacity="0.07"/>
-            </g>
-
-            <!-- White inverse mask — hides everything outside the eye shape -->
-            <path d="M 0 0 L 200 0 L 200 130 L 0 130 Z M 15 68 C 55 30,145 30,185 68 C 145 100,55 100,15 68 Z" fill="white" fill-rule="evenodd"/>
-
-            <!-- Eyelid edge lines -->
-            <path d="M 15 68 C 55 30,145 30,185 68" stroke="#111" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M 15 68 C 55 100,145 100,185 68" stroke="#111" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-
-            <!-- Tear duct (inner corner) -->
-            <path d="M 15 68 C 11 63,8 65,10 69 C 8 73,11 74,15 68" fill="#dd9988" opacity="0.5"/>
-
-            <!-- Upper lashes — main (9) -->
-            <g stroke="#111" stroke-linecap="round" fill="none">
-              <path d="M 28.4 57.7 Q 26.2 54.0 24.2 50.0" stroke-width="1.4"/>
-              <path d="M 44.2 49.8 Q 42.2 44.2 40.1 38.5" stroke-width="1.5"/>
-              <path d="M 61.8 44.1 Q 59.9 37.4 58.0 30.8" stroke-width="1.5"/>
-              <path d="M 80.6 40.6 Q 79.7 33.3 78.9 26.0" stroke-width="1.5"/>
-              <path d="M 100 39.5 Q 100 31.8 100 24.0" stroke-width="1.6"/>
-              <path d="M 119.4 40.6 Q 120.3 33.3 121.1 26.0" stroke-width="1.5"/>
-              <path d="M 138.2 44.1 Q 140.1 37.4 142.0 30.8" stroke-width="1.5"/>
-              <path d="M 155.8 49.8 Q 157.8 44.2 159.9 38.5" stroke-width="1.5"/>
-              <path d="M 171.6 57.7 Q 173.8 54.0 175.8 50.0" stroke-width="1.4"/>
-            </g>
-
-            <!-- Upper lashes — secondary, shorter (8) -->
-            <g stroke="#111" stroke-linecap="round" fill="none" opacity="0.8">
-              <path d="M 36.0 53.5 Q 34.5 50.7 33.1 47.7" stroke-width="1.2"/>
-              <path d="M 52.8 46.6 Q 51.5 42.6 50.2 38.6" stroke-width="1.2"/>
-              <path d="M 71.0 42.0 Q 70.2 37.4 69.3 32.7" stroke-width="1.2"/>
-              <path d="M 90.4 39.7 Q 90.1 34.6 89.8 29.5" stroke-width="1.3"/>
-              <path d="M 109.6 39.7 Q 109.9 34.6 110.2 29.5" stroke-width="1.3"/>
-              <path d="M 129.0 42.0 Q 129.8 37.4 130.7 32.7" stroke-width="1.2"/>
-              <path d="M 147.2 46.6 Q 148.5 42.6 149.8 38.6" stroke-width="1.2"/>
-              <path d="M 164.0 53.5 Q 165.5 50.7 166.9 47.7" stroke-width="1.2"/>
-            </g>
-
-            <!-- Lower lashes (5) -->
-            <g stroke="#111" stroke-linecap="round" fill="none" opacity="0.45">
-              <path d="M 44.2 83.4 Q 43.3 86.2 42.3 89.0" stroke-width="1.1"/>
-              <path d="M 71.0 89.8 Q 70.7 92.8 70.4 95.8" stroke-width="1.1"/>
-              <path d="M 100 92.0 Q 100 95.0 100 98.0" stroke-width="1.2"/>
-              <path d="M 129.0 89.8 Q 129.3 92.8 129.6 95.8" stroke-width="1.1"/>
-              <path d="M 155.8 83.4 Q 156.7 86.2 157.7 89.0" stroke-width="1.1"/>
-            </g>
-          </svg>
-        </div>
+        
         <div class="hero-content">
           <h1 class="hero-title">
             <span class="dark">I'm </span><span class="blue">Isak.</span>
           </h1>
-          <div class="hero-subtitle"><span id="subtitleWord">Web Design</span></div>
+          <p class="tagline" style="font-family:'Instrument Serif',serif;font-size:50px;font-weight:400;color:#111;line-height:1.15;margin-top:24px;">A Product Designer in Australia who <span class="hover-ul"><span class="scramble-text">designs</span><span class="tag-tip">Figma · Prototyping</span></span> and <span class="hover-ul"><span class="scramble-text">deploys</span><span class="tag-tip">Next.js · Vercel</span></span>. Utilizing the latest tools to bring your <span class="hover-ul"><span class="scramble-text">idea</span><span class="tag-tip">Strategy · Research</span></span> to life.</p>
         </div>
       </section>
 
@@ -729,10 +766,10 @@
   </div>
 
   <!-- Work Section -->
-  <section class="work-section page-content">
+  <section id="work" class="work-section page-content">
     <div class="work-header">
       <h2 class="work-title">Work</h2>
-      <a href="#" class="work-view-all">View all work <span class="view-all-arrow">↗</span></a>
+      <!-- <a href="#" class="work-view-all">View all work <span class="view-all-arrow">↗</span></a> -->
     </div>
 
     <div class="work-grid">
@@ -744,22 +781,22 @@
           </video>
           <span class="work-pill pill-project">Project</span>
         </a>
-        <div class="work-card wc-lb" style="display:flex;align-items:center;justify-content:center;">
-          <span style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(0,0,0,0.25);">Loading...</span>
-          <span class="work-pill pill-other">Other</span>
-        </div>
+        <a href="oddprod.html" class="work-card wc-lb" style="display:block;text-decoration:none;">
+          <img src="oddprod/1700051053556.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <span class="work-pill pill-experience">Experience</span>
+        </a>
       </div>
 
       <!-- Right column -->
       <div class="work-col work-col-right">
-        <div class="work-card wc-rt" style="display:flex;align-items:center;justify-content:center;">
-          <span style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(0,0,0,0.25);">Loading...</span>
+        <a href="cogniti-m.html" class="work-card wc-rt" style="display:block;text-decoration:none;">
+          <img src="cogniti-m/cogniti-tile.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
           <span class="work-pill pill-experience">Experience</span>
-        </div>
-        <div class="work-card wc-rb" style="display:flex;align-items:center;justify-content:center;">
-          <span style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(0,0,0,0.25);">Loading...</span>
-          <span class="work-pill pill-other">Other</span>
-        </div>
+        </a>
+        <a href="chronic.html" class="work-card wc-rb" style="display:block;text-decoration:none;">
+          <img src="chronic/621488553_18077176811348738_7670996084101447386_n.jpeg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <span class="work-pill pill-project">Project</span>
+        </a>
       </div>
     </div>
 
@@ -913,36 +950,36 @@ ${md}`;
     }
 
     // Subtitle word cycle
-    const subtitleWords = ['Web Design', 'Product Design', 'Prototyping', 'Branding', 'UX/UI Design'];
-    let subtitleIndex = 0;
     const subtitleEl = document.getElementById('subtitleWord');
+    if (subtitleEl) {
+      const subtitleWords = ['Web Design', 'Product Design', 'Prototyping', 'Branding', 'UX/UI Design'];
+      let subtitleIndex = 0;
 
-    function cycleSubtitle() {
-      // Exit: slide left + blur out
-      subtitleEl.style.transform = 'translateX(-60px)';
-      subtitleEl.style.opacity = '0';
-      subtitleEl.style.filter = 'blur(8px)';
-
-      setTimeout(() => {
-        subtitleIndex = (subtitleIndex + 1) % subtitleWords.length;
-        subtitleEl.textContent = subtitleWords[subtitleIndex];
-
-        // Reset from right instantly
-        subtitleEl.style.transition = 'none';
-        subtitleEl.style.transform = 'translateX(60px)';
+      function cycleSubtitle() {
+        subtitleEl.style.transform = 'translateX(-60px)';
         subtitleEl.style.opacity = '0';
         subtitleEl.style.filter = 'blur(8px)';
 
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          subtitleEl.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease, filter 0.6s ease';
-          subtitleEl.style.transform = 'translateX(0)';
-          subtitleEl.style.opacity = '1';
-          subtitleEl.style.filter = 'blur(0)';
-        }));
-      }, 480);
-    }
+        setTimeout(() => {
+          subtitleIndex = (subtitleIndex + 1) % subtitleWords.length;
+          subtitleEl.textContent = subtitleWords[subtitleIndex];
 
-    setInterval(cycleSubtitle, 2800);
+          subtitleEl.style.transition = 'none';
+          subtitleEl.style.transform = 'translateX(60px)';
+          subtitleEl.style.opacity = '0';
+          subtitleEl.style.filter = 'blur(8px)';
+
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            subtitleEl.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease, filter 0.6s ease';
+            subtitleEl.style.transform = 'translateX(0)';
+            subtitleEl.style.opacity = '1';
+            subtitleEl.style.filter = 'blur(0)';
+          }));
+        }, 480);
+      }
+
+      setInterval(cycleSubtitle, 2800);
+    }
 
     // Abilities scroll fade
     const abilitiesScroll = document.querySelector('.abilities-scroll');
@@ -968,20 +1005,21 @@ ${md}`;
     // Eye follows cursor
     const heroEye = document.getElementById('hero-eye');
     const eyePupil = document.getElementById('eye-pupil');
-    const EYE_CX = 100, EYE_CY = 68, MAX_X = 18, MAX_Y = 11;
-
-    document.addEventListener('mousemove', (e) => {
-      const rect = heroEye.getBoundingClientRect();
-      const centerX = rect.left + rect.width  * (EYE_CX / 200);
-      const centerY = rect.top  + rect.height * (EYE_CY / 130);
-      const dx = e.clientX - centerX;
-      const dy = e.clientY - centerY;
-      const angle = Math.atan2(dy, dx);
-      const dist  = Math.sqrt(dx * dx + dy * dy);
-      const pull  = 1 - Math.exp(-dist / 120); // smooth easing
-      eyePupil.setAttribute('cx', EYE_CX + Math.cos(angle) * pull * MAX_X);
-      eyePupil.setAttribute('cy', EYE_CY + Math.sin(angle) * pull * MAX_Y);
-    });
+    if (heroEye && eyePupil) {
+      const EYE_CX = 100, EYE_CY = 68, MAX_X = 18, MAX_Y = 11;
+      document.addEventListener('mousemove', (e) => {
+        const rect = heroEye.getBoundingClientRect();
+        const centerX = rect.left + rect.width  * (EYE_CX / 200);
+        const centerY = rect.top  + rect.height * (EYE_CY / 130);
+        const dx = e.clientX - centerX;
+        const dy = e.clientY - centerY;
+        const angle = Math.atan2(dy, dx);
+        const dist  = Math.sqrt(dx * dx + dy * dy);
+        const pull  = 1 - Math.exp(-dist / 120);
+        eyePupil.setAttribute('cx', EYE_CX + Math.cos(angle) * pull * MAX_X);
+        eyePupil.setAttribute('cy', EYE_CY + Math.sin(angle) * pull * MAX_Y);
+      });
+    }
 
     input.addEventListener('keydown', async (e) => {
       if (e.key !== 'Enter' || !input.value.trim()) return;
@@ -999,6 +1037,42 @@ ${md}`;
       } finally {
         thinking.style.display = 'none';
       }
+    });
+  </script>
+  <script>
+    // Word scramble on load
+    function scrambleText(el, finalText, duration) {
+      const chars = 'abcdefghijklmnopqrstuvwxyz';
+      const start = performance.now();
+      (function frame(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const resolved = Math.floor(progress * finalText.length);
+        let out = '';
+        for (let i = 0; i < finalText.length; i++) {
+          out += i < resolved ? finalText[i] : chars[Math.floor(Math.random() * chars.length)];
+        }
+        el.textContent = out;
+        if (progress < 1) requestAnimationFrame(frame);
+        else el.textContent = finalText;
+      })(start);
+    }
+    document.querySelectorAll('.scramble-text').forEach((el, i) => {
+      const text = el.textContent;
+      setTimeout(() => scrambleText(el, text, 700), 300 + i * 120);
+    });
+
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    const hamburger = document.getElementById('nav-hamburger');
+    const overlay = document.getElementById('nav-overlay');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      overlay.classList.toggle('open');
+      document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
     });
   </script>
 </body>

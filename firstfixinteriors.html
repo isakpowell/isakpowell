@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="favi.svg" type="image/svg+xml">
+  <title>First Fix Interiors — Isak</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #111;
+      cursor: none;
+    }
+
+    *, a, button, input, [role="button"] { cursor: none; }
+
+    #cursor {
+      position: fixed;
+      width: 22px;
+      height: 22px;
+      background: rgba(0,0,0,0.75);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: width 0.15s ease, height 0.15s ease;
+    }
+
+    body:has(a:hover) #cursor,
+    body:has(button:hover) #cursor {
+      width: 38px;
+      height: 38px;
+    }
+
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+
+    /* ── Navbar ── */
+    nav { padding-top: 24px; position: relative; }
+    nav .container { display: flex; justify-content: space-between; align-items: center; padding-top: 22px; padding-bottom: 22px; }
+    .nav-logo { height: 120px; }
+    .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+    .nav-links a { text-decoration: none; color: #111; font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 400; }
+    .nav-links a:hover { opacity: 0.6; }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      position: relative;
+      z-index: 1001;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #111;
+      border-radius: 2px;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      z-index: 1000;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 40px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .nav-overlay.open { display: flex; opacity: 1; }
+    .nav-overlay ul { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .nav-overlay ul li { border-bottom: 1px solid rgba(0,0,0,0.08); }
+    .nav-overlay ul li:first-child { border-top: 1px solid rgba(0,0,0,0.08); }
+    .nav-overlay ul li a { display: block; padding: 22px 0; text-decoration: none; color: #111; font-family: 'Inter', sans-serif; font-size: 28px; font-weight: 400; }
+    .nav-overlay ul li a:active { opacity: 0.5; }
+
+    /* ── Hero ── */
+    .hero { background: #ffffff; padding-top: 40px; }
+    .hero-inner { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+
+    .hero-image-wrap {
+      width: 100%;
+      height: 55vh;
+      border-radius: 32px;
+      overflow: hidden;
+      margin-bottom: 40px;
+      background: #fe7700;
+    }
+    .hero-image-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+
+    .hero-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(48px, 7vw, 96px); font-weight: 800; line-height: 1; letter-spacing: -2px; color: #111; margin-bottom: 32px; }
+    .hero-tagline { font-family: 'Instrument Serif', serif; font-size: clamp(24px, 3vw, 42px); color: #111; font-weight: 400; margin-bottom: 32px; line-height: 1.3; }
+    .hero-tagline .accent { color: #fe7700; }
+    .hero-divider { height: 1px; background: #d0d0d0; margin-bottom: 40px; }
+
+    .hero-bottom { display: flex; justify-content: space-between; align-items: stretch; gap: 64px; padding-bottom: 80px; }
+    .hero-desc { flex: 1; max-width: 75%; display: flex; flex-direction: column; justify-content: space-between; }
+    .hero-desc p { font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.7; color: #333; margin-bottom: 20px; }
+    .hero-desc p:last-child { margin-bottom: 0; }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      gap: 6px;
+      background: #fe7700;
+      color: #fff;
+      font-family: 'Instrument Serif', serif;
+      font-size: 17px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      margin-top: 4px;
+    }
+    .hero-cta:hover { opacity: 0.85; }
+
+    .hero-meta { display: flex; flex-direction: column; gap: 24px; }
+    .hero-meta-label { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; color: #111; margin-bottom: 6px; }
+    .hero-meta-value { font-family: 'Instrument Serif', serif; font-size: 17px; color: #555; line-height: 1.8; }
+
+    /* ── Page content ── */
+    .page-content { max-width: 860px; margin: 0 auto; padding: 0 40px; }
+    .page-content-wide { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+
+    /* ── Impact grid ── */
+    .impact-wrapper { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+    .impact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; border-radius: 20px; overflow: hidden; background: #f5dfc0; }
+    .impact-cell { background: #fffaf5; padding: 48px 40px; }
+    .impact-number { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(44px, 5vw, 72px); font-weight: 800; letter-spacing: -2px; color: #fe7700; line-height: 1; margin-bottom: 12px; }
+    .impact-desc { font-family: 'Inter', sans-serif; font-size: 15px; color: #555; line-height: 1.5; max-width: 200px; }
+
+    /* ── Sections ── */
+    .section { padding-top: 96px; }
+    .section-heading { font-family: 'Bricolage Grotesque', sans-serif; font-size: clamp(36px, 4.5vw, 64px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.05; color: #111; margin-bottom: 32px; }
+    .section-body { font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.75; color: #444; max-width: 640px; }
+    .section-body + .section-body { margin-top: 20px; }
+
+    /* ── Full-width image ── */
+    .full-image { margin-top: 80px; width: 100%; height: 70vh; background: #ffe8cc; border-radius: 20px; overflow: hidden; }
+    .full-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── Two-col ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; padding-top: 96px; }
+    .two-col-image { background: #ffe8cc; border-radius: 20px; height: 480px; overflow: hidden; }
+    .two-col-image img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── Feature list ── */
+    .feature-list { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+    .feature-item { display: flex; align-items: baseline; gap: 12px; font-family: 'Inter', sans-serif; font-size: 16px; color: #333; line-height: 1.5; }
+    .feature-dot { width: 6px; height: 6px; border-radius: 50%; background: #fe7700; flex-shrink: 0; margin-top: 8px; }
+
+    /* ── Pull quote ── */
+    .pull-quote { padding-top: 96px; }
+    .pull-quote blockquote { font-family: 'Instrument Serif', serif; font-size: clamp(28px, 3.2vw, 48px); font-style: italic; color: #111; line-height: 1.35; border-left: 3px solid #fe7700; padding-left: 40px; }
+
+    /* ── Photo strip ── */
+    .photo-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .photo-strip-tall { height: 60vh; border-radius: 20px; overflow: hidden; }
+    .photo-strip-tall img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── Footer ── */
+    .footer { padding: 80px 40px 60px; text-align: center; }
+    .footer-text { font-family: 'Instrument Serif', serif; font-size: clamp(48px, 7.2vw, 140px); font-weight: 400; color: #111; line-height: 1.1; }
+    .footer-text .eyes { color: #1847d4; font-style: italic; }
+    .footer-links { display: flex; justify-content: flex-start; gap: 40px; margin-top: 32px; padding-bottom: 40px; }
+    .footer-links a { font-family: 'Instrument Serif', serif; font-size: 20px; color: #111; text-decoration: none; }
+    .footer-links a:hover { opacity: 0.6; }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .hero-inner, .container, .page-content, .page-content-wide, .impact-wrapper {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .nav-hamburger { display: flex; }
+      .nav-links { display: none; }
+
+      .hero-image-wrap { height: 44vw; min-height: 220px; border-radius: 20px; }
+      .hero-title { letter-spacing: -1px; margin-bottom: 20px; }
+      .hero-bottom { flex-direction: column; gap: 40px; padding-bottom: 60px; }
+      .hero-desc { max-width: 100%; }
+      .hero-meta { flex-direction: row; flex-wrap: wrap; gap: 16px; border-top: 1.5px solid #e0e0e0; padding-top: 24px; }
+      .hero-meta > div { flex: 1 1 45%; }
+
+      .impact-grid { grid-template-columns: 1fr; }
+
+      .section { padding-top: 64px; }
+
+      .full-image { height: 55vw; min-height: 200px; margin-top: 48px; }
+
+      .two-col { grid-template-columns: 1fr; gap: 32px; padding-top: 64px; }
+      .two-col-image { height: 60vw; min-height: 240px; }
+
+      .pull-quote blockquote { padding-left: 20px; }
+
+      .photo-strip { grid-template-columns: 1fr; }
+      .photo-strip-tall { height: 72vw; }
+
+      .footer { padding: 60px 20px 48px; }
+      .footer-links { gap: 20px; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="container">
+      <a href="index.html"><img src="blinking_isak_logo.gif" alt="Isak." class="nav-logo"></a>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html">Work</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="https://www.linkedin.com/in/isak-powell/" target="_blank">LinkedIn ↗</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Mobile full-page nav overlay -->
+  <div class="nav-overlay" id="nav-overlay">
+    <ul>
+      <li><a href="index.html">Work</a></li>
+      <li><a href="photography.html">Photography</a></li>
+      <li><a href="https://www.linkedin.com/in/isak-powell/" target="_blank">LinkedIn ↗</a></li>
+    </ul>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-image-wrap">
+        <img src="firstfixinteriors/linkedin-1.jpg" alt="First Fix Interiors — Branding & Website">
+      </div>
+      <h1 class="hero-title">First Fix Interiors</h1>
+      <p class="hero-tagline">Branding and web design for a <span class="accent">Sydney plasterer.</span></p>
+      <div class="hero-divider"></div>
+      <div class="hero-bottom">
+        <div class="hero-desc">
+          <p>First Fix Interiors is a decorative plastering business based in Hurlstone Park, Sydney, operating for over 25 years. From Federation restorations and heritage-listed properties to contemporary new builds, they take pride in delivering exceptional work, but had no digital presence to show for it.
+          I designed and built their brand from the ground up: logo, colour system, typography, business cards, and a full website. The brief was to make them look like the premium, experienced tradesperson they are: someone customers could trust before the first call.</p>
+          <a href="https://www.firstfixinteriors.com.au" target="_blank" class="hero-cta">Visit site ↗</a>
+        </div>
+        <div class="hero-meta">
+          <div>
+            <p class="hero-meta-label">Client</p>
+            <p class="hero-meta-value">First Fix Interiors</p>
+          </div>
+          <div>
+            <p class="hero-meta-label">My Role</p>
+            <p class="hero-meta-value">Web Design<br>Branding</p>
+          </div>
+          <div>
+            <p class="hero-meta-label">Type</p>
+            <p class="hero-meta-value">Freelance<br>Client Project</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact -->
+  <div class="impact-wrapper">
+    <div class="impact-grid">
+      <div class="impact-cell">
+        <p class="impact-number">25+</p>
+        <p class="impact-desc">years of plastering experience behind the brand</p>
+      </div>
+      <div class="impact-cell">
+        <p class="impact-number">100+</p>
+        <p class="impact-desc">projects completed across greater Sydney</p>
+      </div>
+      <div class="impact-cell">
+        <p class="impact-number">0→1</p>
+        <p class="impact-desc">brand built from scratch — logo, site, cards, system</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Brief -->
+  <div class="page-content">
+    <div class="section">
+      <h2 class="section-heading">A trade with no brand. A craftsman with no website.</h2>
+      <p class="section-body">Alan Peltier has been plastering Sydney homes for over 25 years. His work speaks for itself on any job site — but online, he didn't exist. No website, no brand, no way for potential clients to find him or understand what he was capable of.</p>
+      <p class="section-body">The challenge was to build a brand that felt premium and trustworthy without feeling corporate. Tradespeople are judged immediately on how professional they look — the logo on the van, the business card handed over on site, the website that comes up when someone Googles them after a recommendation. Every touchpoint needed to carry the same weight.</p>
+    </div>
+  </div>
+
+  <!-- Website mockup full width -->
+  <div class="page-content-wide">
+    <div class="full-image">
+      <img src="firstfixinteriors/linkedin-2.jpg" alt="First Fix Interiors website hero — Artistry In Plaster">
+    </div>
+  </div>
+
+  <!-- The Website -->
+  <div class="page-content-wide">
+    <div class="two-col">
+      <div>
+        <h2 class="section-heading">Artistry In Plaster</h2>
+        <p class="section-body">The website leads with a bold, dark hero — dramatic photography, large type, and the tagline "Artistry In Plaster." It positions First Fix as craft-first, not just a quote-and-go tradie.</p>
+        <div class="feature-list">
+          <div class="feature-item"><span class="feature-dot"></span>Services pages covering heritage restoration, decorative plaster, and new builds</div>
+          <div class="feature-item"><span class="feature-dot"></span>Portfolio with before/after project photography and case studies</div>
+          <div class="feature-item"><span class="feature-dot"></span>Private quote request form — name, project type, message</div>
+          <div class="feature-item"><span class="feature-dot"></span>About page with 25+ years experience stats and location</div>
+          <div class="feature-item"><span class="feature-dot"></span>Mobile-first design, fully responsive</div>
+          <div class="feature-item"><span class="feature-dot"></span>Deployed on Netlify at firstfixinteriors.com.au</div>
+        </div>
+      </div>
+      <div class="two-col-image">
+        <img src="firstfixinteriors/linkedin-3.jpg" alt="First Fix Interiors interior pages">
+      </div>
+    </div>
+  </div>
+
+  <!-- Pull quote -->
+  <div class="page-content">
+    <div class="pull-quote">
+      <blockquote>"Tradespeople who take pride in the work."</blockquote>
+    </div>
+  </div>
+
+  <!-- Detailed pages -->
+  <div class="page-content-wide" style="padding-top: 96px;">
+    <div class="photo-strip">
+      <div class="photo-strip-tall">
+        <img src="firstfixinteriors/linkedin-4.jpg" alt="First Fix Interiors — quote form, portfolio and project pages">
+      </div>
+      <div class="photo-strip-tall">
+        <img src="firstfixinteriors/linkedin-2-1.jpg" alt="First Fix Interiors brand system — colours, logo, typography">
+      </div>
+    </div>
+  </div>
+
+  <!-- Brand System -->
+  <div class="page-content">
+    <div class="section">
+      <h2 class="section-heading">A brand system, not just a logo</h2>
+      <p class="section-body">The brand is built around two colours: a bold primary orange (#FE7700) and near-black (#000000) — with DM Sans as the typeface throughout. The combination reads as confident and modern without losing the grounded feel of a trade business.</p>
+      <p class="section-body">The logo uses a house icon with a trowel motif, immediately communicating plastering and home without spelling it out. It works at favicon size, on a business card, and as a full header lockup — designed to scale from digital to print from the start.</p>
+    </div>
+  </div>
+
+  <!-- Business cards -->
+  <div class="page-content-wide" style="padding-top: 64px;">
+    <div class="photo-strip">
+      <div class="photo-strip-tall">
+        <img src="firstfixinteriors/linkedin-5.jpg" alt="First Fix Interiors business card — Alan Peltier, Plastering Expert">
+      </div>
+      <div class="photo-strip-tall">
+        <img src="firstfixinteriors/linkedin-6.jpg" alt="First Fix Interiors business cards scattered">
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer page-content-wide">
+    <div style="height:1.5px;margin-top:96px;margin-bottom:60px;background-image:repeating-linear-gradient(to right,#111 0px,#111 24px,transparent 24px,transparent 36px);"></div>
+    <p class="footer-text">Build a world your <span class="eyes">eyes</span> deserve</p>
+    <div class="footer-links">
+      <a href="index.html">Work</a>
+      <a href="photography.html">Photography</a>
+      <a href="https://www.linkedin.com/in/isak-powell/" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('nav-hamburger');
+    const overlay = document.getElementById('nav-overlay');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      overlay.classList.toggle('open');
+      document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+    });
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+  </script>
+</body>
+</html>
