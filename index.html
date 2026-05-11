@@ -303,11 +303,11 @@
       color: #111;
     }
 
-    .ai-input-wrap { width: 100%; }
+    .ai-input-wrap { width: 100%; position: relative; }
 
     .ai-input {
       width: 100%;
-      padding: 14px 22px;
+      padding: 14px 56px 14px 22px;
       border: 1.5px solid #c5cff7;
       border-radius: 100px;
       font-family: 'Inter', sans-serif;
@@ -315,7 +315,29 @@
       color: #111;
       background: rgba(255,255,255,0.6);
       outline: none;
+      box-sizing: border-box;
     }
+
+    .ai-send-btn {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #111;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .ai-send-btn:hover { background: #444; }
+
+    .ai-send-btn svg { width: 16px; height: 16px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
     .ai-input::placeholder { color: #888; font-family: 'Instrument Serif', serif; font-size: 20px; }
 
@@ -757,6 +779,9 @@
             id="aiInput"
             placeholder=""
           >
+          <button class="ai-send-btn" id="aiSendBtn" aria-label="Send">
+            <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
         </div>
         <div class="ai-response" id="aiResponse">
           <div class="ai-response-text" id="aiResponseText"></div>
@@ -1029,8 +1054,8 @@ ${md}`;
       });
     }
 
-    input.addEventListener('keydown', async (e) => {
-      if (e.key !== 'Enter' || !input.value.trim()) return;
+    async function submitQuery() {
+      if (!input.value.trim()) return;
       const query = input.value.trim();
 
       responseBox.classList.add('visible');
@@ -1045,6 +1070,13 @@ ${md}`;
       } finally {
         thinking.style.display = 'none';
       }
+    }
+
+    document.getElementById('aiSendBtn').addEventListener('click', submitQuery);
+
+    input.addEventListener('keydown', async (e) => {
+      if (e.key !== 'Enter') return;
+      submitQuery();
     });
   </script>
   <script>
