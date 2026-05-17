@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://isak.com.au/sitemap.xml

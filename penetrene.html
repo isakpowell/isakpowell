@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary SEO -->
+  <title>Penetrene Rebrand — Logo & Website Design by Isak Powell</title>
+  <meta name="description" content="Full brand overhaul for Penetrene, an Australian lubricant icon since 1924. New logo system, brand identity, and website deployed on Cloudflare — by Product Designer Isak Powell.">
+  <meta name="keywords" content="Penetrene, brand design, logo design, rebrand, Australian brand, lubricant, Isak Powell, product designer, web design, Cloudflare">
+  <meta name="author" content="Isak Powell">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://isak.com.au/penetrene.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://isak.com.au/penetrene.html">
+  <meta property="og:title" content="Penetrene Rebrand — Logo & Website by Isak Powell">
+  <meta property="og:description" content="Full brand overhaul for Penetrene — new logo, identity system, and website for an Australian lubricant icon since 1924.">
+  <meta property="og:image" content="https://isak.com.au/penetrene/pen.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Isak Powell">
+  <meta property="og:locale" content="en_AU">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Penetrene Rebrand — Logo & Website by Isak Powell">
+  <meta name="twitter:description" content="Full brand overhaul for Penetrene — new logo, identity system, and website for an Australian lubricant icon since 1924.">
+  <meta name="twitter:image" content="https://isak.com.au/penetrene/pen.png">
+
+  <!-- Favicon -->
+  <link rel="icon" href="favi.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="favi.svg">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- JSON-LD structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": "Penetrene Brand Rebrand",
+    "description": "Full brand overhaul for Penetrene — logo design, brand identity, and website design and development.",
+    "url": "https://isak.com.au/penetrene.html",
+    "image": "https://isak.com.au/penetrene/pen.png",
+    "creator": {
+      "@type": "Person",
+      "name": "Isak Powell",
+      "url": "https://isak.com.au"
+    },
+    "about": {
+      "@type": "Organization",
+      "name": "Penetrene",
+      "foundingDate": "1924",
+      "description": "Australian lubricant brand since 1924",
+      "url": "https://penetrene.com.au"
+    },
+    "keywords": "logo design, brand identity, web design, Australia, rebrand"
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #111;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      body { cursor: none; }
+
+      *, a, button, input, [role="button"] { cursor: none; }
+
+      #cursor {
+        position: fixed;
+        width: 22px;
+        height: 22px;
+        background: rgba(0,0,0,0.75);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 99999;
+        transform: translate(-50%, -50%);
+        transition: width 0.15s ease, height 0.15s ease;
+      }
+
+      body:has(a:hover) #cursor,
+      body:has(button:hover) #cursor {
+        width: 38px;
+        height: 38px;
+      }
+    }
+
+    @media (pointer: coarse), (max-width: 1024px) {
+      #cursor { display: none !important; }
+      body, *, a, button, input, [role="button"] { cursor: auto !important; }
+    }
+
+    /* ── Shared layout ── */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ── Navbar ── */
+    nav {
+      padding-top: 24px;
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 22px;
+      padding-bottom: 22px;
+    }
+
+    .nav-logo {
+      height: 120px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #111;
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .nav-links a:hover { opacity: 0.6; }
+
+    .nav-btn {
+      background: #1847d4;
+      color: #fff !important;
+      padding: 10px 22px;
+      border-radius: 100px;
+    }
+
+    .nav-btn:hover { opacity: 0.85 !important; }
+
+    /* ── Hero ── */
+    .hero {
+      background: #ffffff;
+      padding-top: 40px;
+    }
+
+    .hero-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .hero-image-placeholder {
+      width: 100%;
+      height: 55vh;
+      background: #111;
+      border-radius: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 40px;
+      overflow: hidden;
+    }
+
+    .hero-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(48px, 7vw, 96px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -2px;
+      color: #111;
+      margin-bottom: 32px;
+    }
+
+    .hero-tagline {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(24px, 3vw, 42px);
+      color: #111;
+      font-weight: 400;
+      margin-bottom: 32px;
+      line-height: 1.3;
+    }
+
+    .hero-tagline .accent {
+      color: #F5B800;
+    }
+
+    .hero-divider {
+      height: 1px;
+      background: #d0d0d0;
+      margin-bottom: 40px;
+    }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: stretch;
+      gap: 64px;
+      padding-bottom: 80px;
+    }
+
+    .hero-desc {
+      flex: 1;
+      max-width: 75%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero-desc p {
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      color: #333;
+      margin-bottom: 16px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      gap: 6px;
+      background: #111;
+      color: #fff;
+      font-family: 'Instrument Serif', serif;
+      font-size: 17px;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .hero-cta:hover { opacity: 0.75; }
+
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .hero-meta-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 6px;
+    }
+
+    .hero-meta-value {
+      font-family: 'Instrument Serif', serif;
+      font-size: 17px;
+      color: #555;
+      line-height: 1.8;
+    }
+
+    /* ── Page content ── */
+    .page-content {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .page-content-wide {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ── Intro ── */
+    .intro {
+      padding-top: 32px;
+      padding-bottom: 48px;
+    }
+
+    .intro-text {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(22px, 2.4vw, 32px);
+      line-height: 1.55;
+      color: #111;
+      font-weight: 400;
+      margin-bottom: 56px;
+    }
+
+    /* ── Section ── */
+    .section {
+      padding-top: 96px;
+      padding-bottom: 0;
+    }
+
+    .section-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #F5B800;
+      margin-bottom: 20px;
+    }
+
+    .section-heading {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: clamp(36px, 4.5vw, 64px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.05;
+      color: #111;
+      margin-bottom: 32px;
+    }
+
+    .section-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
+      line-height: 1.75;
+      color: #444;
+      max-width: 640px;
+    }
+
+    .section-body + .section-body {
+      margin-top: 20px;
+    }
+
+    /* ── Brand colours strip ── */
+    .colour-strip {
+      display: flex;
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .colour-swatch {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .colour-swatch-block {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+    }
+
+    .colour-swatch-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    /* ── Full-width image ── */
+    .full-image {
+      margin-top: 80px;
+      width: 100%;
+      height: 70vh;
+      background: #111;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    /* ── Two-col layout ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+      padding-top: 96px;
+    }
+
+    .two-col-image {
+      border-radius: 20px;
+      overflow: hidden;
+      height: 480px;
+      background: #f5f5f5;
+    }
+
+    /* ── Image grid ── */
+    .image-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 16px;
+      margin-top: 80px;
+    }
+
+    .image-grid-tall {
+      border-radius: 20px;
+      overflow: hidden;
+      height: 520px;
+      background: #f5f5f5;
+    }
+
+    .image-grid-right {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .image-grid-sm {
+      border-radius: 20px;
+      overflow: hidden;
+      flex: 1;
+      background: #f5f5f5;
+    }
+
+    /* ── Pull quote ── */
+    .pull-quote {
+      padding-top: 96px;
+      padding-bottom: 0;
+    }
+
+    .pull-quote blockquote {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(28px, 3.2vw, 48px);
+      font-style: italic;
+      color: #111;
+      line-height: 1.35;
+      border-left: 3px solid #F5B800;
+      padding-left: 40px;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1.5px;
+      margin: 96px 0 0;
+      background-image: repeating-linear-gradient(to right, #111 0px, #111 24px, transparent 24px, transparent 36px);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 80px 40px 60px;
+      text-align: center;
+    }
+
+    .footer-text {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(48px, 7.2vw, 140px);
+      font-weight: 400;
+      color: #111;
+      line-height: 1.1;
+    }
+
+    .footer-text .eyes {
+      color: #1847d4;
+      font-style: italic;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: flex-start;
+      gap: 40px;
+      margin-top: 32px;
+      padding-bottom: 40px;
+    }
+
+    .footer-links a {
+      font-family: 'Instrument Serif', serif;
+      font-size: 20px;
+      color: #111;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover { opacity: 0.6; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .container,
+      .hero-inner,
+      .page-content,
+      .page-content-wide {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .nav-links { display: none; }
+
+      .hero-image-placeholder {
+        height: 40vw;
+        min-height: 200px;
+        border-radius: 20px;
+      }
+
+      .hero-title { letter-spacing: -1px; margin-bottom: 20px; }
+
+      .hero-bottom {
+        flex-direction: column;
+        gap: 40px;
+        padding-bottom: 60px;
+      }
+
+      .hero-desc { max-width: 100%; }
+
+      .hero-meta {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 16px;
+        border-top: 1.5px solid #e0e0e0;
+        padding-top: 24px;
+      }
+
+      .hero-meta > div { flex: 1 1 45%; }
+
+      .section { padding-top: 64px; }
+      .intro { padding-top: 56px; padding-bottom: 48px; }
+
+      .full-image { height: 50vw; min-height: 200px; margin-top: 48px; }
+
+      .two-col { grid-template-columns: 1fr; gap: 32px; padding-top: 64px; }
+      .two-col-image { height: 60vw; min-height: 240px; }
+
+      .image-grid { grid-template-columns: 1fr; margin-top: 48px; }
+      .image-grid-tall { height: 60vw; min-height: 240px; }
+      .image-grid-sm { height: 48vw; min-height: 180px; }
+
+      .pull-quote blockquote { padding-left: 20px; }
+      .divider { margin: 64px 0 0; }
+      .footer { padding: 60px 20px 48px; }
+      .footer-links { flex-wrap: wrap; gap: 20px; }
+
+      .colour-strip { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="container">
+      <a href="index.html"><img src="blinking_isak_logo.gif" alt="Isak." class="nav-logo"></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Work</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="https://www.linkedin.com/in/isak-powell/" target="_blank">LinkedIn ↗</a></li>
+        <li><a href="#" class="nav-btn">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-image-placeholder" style="position:relative;overflow:hidden;">
+        <div style="position:absolute;inset:0;background:rgb(30,30,30);"></div>
+        <!-- diagonal yellow slash -->
+        <div style="position:absolute;top:-60px;right:120px;width:6px;height:200%;background:#F5B800;transform:rotate(18deg);opacity:0.18;"></div>
+        <div style="position:absolute;top:-60px;right:160px;width:2px;height:200%;background:#F5B800;transform:rotate(18deg);opacity:0.10;"></div>
+        <!-- red accent bar bottom -->
+        <div style="position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(to right,#E50000 0%,#F5B800 100%);"></div>
+        <img src="penetrene/pen.png" alt="Penetrene rebrand" style="position:relative;z-index:1;width:100%;height:100%;object-fit:contain;">
+      </div>
+      <h1 class="hero-title">Penetrene</h1>
+      <p class="hero-tagline">A full <span class="accent">brand overhaul</span> for an Australian lubricant icon.</p>
+      <div class="hero-divider"></div>
+      <div class="hero-bottom">
+        <div class="hero-desc">
+          <p>Penetrene has been lubricating Australia since 1924. A century of history, but the visual identity hadn't kept pace. The old logo wasn't doing justice to a product people genuinely trust. I took on the full rebrand: a new logo system, a refined brand identity, and a website built and deployed on Cloudflare.</p>
+          <a href="https://penetrene.com.au" target="_blank" class="hero-cta">Visit live site ↗</a>
+        </div>
+        <div class="hero-meta">
+          <div>
+            <p class="hero-meta-label">Client</p>
+            <p class="hero-meta-value">Penetrene</p>
+          </div>
+          <div>
+            <p class="hero-meta-label">Discipline</p>
+            <p class="hero-meta-value">Logo Design<br>Brand Identity<br>Web Design<br>Web Development</p>
+          </div>
+          <div>
+            <p class="hero-meta-label">Deployed on</p>
+            <p class="hero-meta-value">Cloudflare</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro -->
+  <div class="page-content">
+    <div class="intro">
+      <p class="intro-text">Penetrene needed a brand that matched the boldness of the product. The old identity was holding it back. The new one is built on three things: black confidence, yellow energy, and a forward-facing mark that means business.</p>
+    </div>
+  </div>
+
+  <!-- Historical image + context -->
+  <div class="page-content-wide">
+    <div class="two-col" style="padding-top:0;align-items:center;">
+      <div class="two-col-image" style="height:480px;background:#f0f0f0;">
+        <img src="penetrene/29204-32-1024x1024.jpg" alt="Original Penetrene tin from 1924" style="width:100%;height:100%;object-fit:cover;border-radius:20px;">
+      </div>
+      <div>
+        <h2 class="section-heading">A century of lubricating Australia.</h2>
+        <p class="section-body">Since 1924, Penetrene has been a fixture in Australian workshops, garages, and sheds. That original yellow tin with its hand-lettered badge was an icon. But a hundred years on, the brand needed to carry that legacy into the next century without losing what made it trusted in the first place.</p>
+        <p class="section-body" style="margin-top:20px;">The brief was simple: honour the history, lose the clutter. Keep the yellow, keep the authority, make it work everywhere.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logo ideation -->
+  <div class="page-content">
+    <div class="section">
+      <h2 class="section-heading">From badge to wordmark</h2>
+      <p class="section-body">The original logo sat inside a black rectangle, a classic industrial badge. The challenge was preserving that authority while making the mark work at any scale, on any surface. I explored dozens of directions: different weights, arrow treatments, colour arrangements, and tagline placements before landing on the final system.</p>
+      <p class="section-body">The arrow chevron became the anchor of the identity. It communicates forward motion, penetration, and momentum. Paired with a condensed extrabold wordmark, it reads instantly whether it's on a product label, a workshop wall, or a browser tab.</p>
+    </div>
+  </div>
+
+  <!-- Ideation image (pen1) -->
+  <div class="page-content-wide">
+    <div class="full-image" style="background:#f5f5f5;">
+      <img src="penetrene/pen1.png" alt="Penetrene logo ideationvariations and explorations" style="width:100%;height:100%;object-fit:contain;">
+    </div>
+  </div>
+
+  <!-- Brand system -->
+  <div class="page-content">
+    <div class="section">
+      <h2 class="section-heading">Three colours. Zero compromise.</h2>
+      <p class="section-body">The palette strips back to essentials: black for authority, yellow for energy, red for urgency. Together they carry the industrial confidence the brand deserves. The typeface, Open Sans Condensed Extrabold Italic, is open source, highly legible, and packs serious punch at display sizes.</p>
+      <p class="section-body">The new logo ships in two versions: a standalone wordmark with arrow for clean contexts, and a full black-background lockup for product and workshop applications.</p>
+
+      <div class="colour-strip">
+        <div class="colour-swatch">
+          <div class="colour-swatch-block" style="background:#111111;border:1px solid #e0e0e0;"></div>
+          <span class="colour-swatch-label">#111111<br>Black</span>
+        </div>
+        <div class="colour-swatch">
+          <div class="colour-swatch-block" style="background:#F5B800;"></div>
+          <span class="colour-swatch-label">#F5B800<br>Yellow</span>
+        </div>
+        <div class="colour-swatch">
+          <div class="colour-swatch-block" style="background:#E50000;"></div>
+          <span class="colour-swatch-label">#E50000<br>Red</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logo finals (pen3) -->
+  <div class="page-content-wide">
+    <div class="full-image" style="background:#fff;">
+      <img src="penetrene/pen3.png" alt="Penetrene brand guidelines old vs new" style="width:100%;height:100%;object-fit:contain;background:#fff;">
+    </div>
+  </div>
+
+  <!-- Pull quote -->
+  <div class="page-content">
+    <div class="pull-quote">
+      <blockquote>"A brand lubricating Australia since 1924 deserved an identity that worked as hard as the product."</blockquote>
+    </div>
+  </div>
+
+  <!-- Website -->
+  <div class="page-content">
+    <div class="section">
+      <h2 class="section-heading">Built and shipped on Cloudflare</h2>
+      <p class="section-body">With the brand locked in, I designed and built the Penetrene website from scratch, carrying the bold identity into every page. The site is deployed and served via Cloudflare, keeping load times fast and the experience reliable across Australia.</p>
+      <p class="section-body">The design keeps the same principles as the logo: high contrast, confident type, and a no-frills layout that lets the product and brand speak for themselves.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer page-content-wide">
+    <div style="height:1.5px;margin-bottom:60px;background-image:repeating-linear-gradient(to right,#111 0px,#111 24px,transparent 24px,transparent 36px);"></div>
+    <p class="footer-text">Build a world your <span class="eyes">eyes</span> deserve</p>
+    <div class="footer-links">
+      <a href="index.html">Work</a>
+      <a href="photography.html">Photography</a>
+      <a href="https://www.linkedin.com/in/isak-powell/" target="_blank">LinkedIn</a>
+      <a href="#">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      const cursor = document.getElementById('cursor');
+      document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      });
+    } else {
+      const cursor = document.getElementById('cursor');
+      if (cursor) cursor.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
