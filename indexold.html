@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary SEO -->
+  <title>Isak Powell — Product Designer & Developer in Australia</title>
+  <meta name="description" content="Isak Powell is a Product Designer and Developer based in Australia who designs and deploys digital products. UX/UI, Figma, Next.js, Vercel.">
+  <meta name="keywords" content="Isak Powell, isak.com.au, product designer, UX designer, UI designer, web developer, Australia, Figma, Next.js, portfolio">
+  <meta name="author" content="Isak Powell">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://isak.com.au/">
+
+  <!-- Open Graph (Facebook, LinkedIn) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://isak.com.au/">
+  <meta property="og:title" content="Isak Powell — Product Designer & Developer">
+  <meta property="og:description" content="Product Designer and Developer based in Australia. Designing and deploying digital products that make an impact.">
+  <meta property="og:image" content="https://isak.com.au/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Isak Powell">
+  <meta property="og:locale" content="en_AU">
+
+  <!-- Twitter / X Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Isak Powell — Product Designer & Developer">
+  <meta name="twitter:description" content="Product Designer and Developer based in Australia. Designing and deploying digital products that make an impact.">
+  <meta name="twitter:image" content="https://isak.com.au/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" href="favi.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="favi.svg">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- JSON-LD structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Isak Powell",
+    "url": "https://isak.com.au",
+    "jobTitle": "Product Designer & Developer",
+    "description": "Product Designer and Developer based in Australia specialising in UX/UI, Figma, and web development.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "AU"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/in/isak-powell/"
+    ],
+    "knowsAbout": ["UX Design", "UI Design", "Product Design", "Figma", "Next.js", "Web Development", "Branding"]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      background: #ffffff;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      body { cursor: none; }
+
+      *, a, button, input, [role="button"] { cursor: none; }
+
+      #cursor {
+        position: fixed;
+        width: 22px;
+        height: 22px;
+        background: rgba(0,0,0,0.75);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 99999;
+        transform: translate(-50%, -50%);
+        transition: width 0.15s ease, height 0.15s ease;
+      }
+
+      body:has(a:hover) #cursor,
+      body:has(button:hover) #cursor {
+        width: 38px;
+        height: 38px;
+      }
+    }
+
+    @media (pointer: coarse), (max-width: 1024px) {
+      #cursor { display: none !important; }
+      body, *, a, button, input, [role="button"] { cursor: auto !important; }
+    }
+
+    /* ── Shared layout ── */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ── Navbar ── */
+    nav {
+      padding-top: 24px;
+      position: relative;
+    }
+
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 22px;
+      padding-bottom: 22px;
+    }
+
+    .nav-logo {
+      height: 120px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #111;
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .nav-links a:hover { opacity: 0.6; }
+
+    .nav-btn {
+      background: #1847d4;
+      color: #fff !important;
+      padding: 10px 22px;
+      border-radius: 100px;
+    }
+
+    .nav-btn:hover { opacity: 0.85 !important; }
+
+    .hover-ul {
+      font-style: italic;
+      position: relative;
+      background-image: linear-gradient(rgba(24,71,212,0.1), rgba(24,71,212,0.1));
+      background-position: 0% 50%;
+      background-repeat: no-repeat;
+      background-size: 0% 88%;
+      transition: background-size 0.45s ease;
+      border-radius: 3px;
+    }
+    .tagline:hover .hover-ul {
+      background-size: 100% 88%;
+    }
+
+    .tag-tip {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%) translateY(6px);
+      background: #111;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 500;
+      white-space: nowrap;
+      padding: 5px 12px;
+      border-radius: 100px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      z-index: 10;
+    }
+    .hover-ul:hover .tag-tip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      position: relative;
+      z-index: 1001;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #111;
+      border-radius: 2px;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      z-index: 1000;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 40px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .nav-overlay.open {
+      display: flex;
+      opacity: 1;
+    }
+    .nav-overlay ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .nav-overlay ul li {
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+    .nav-overlay ul li:first-child {
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+    .nav-overlay ul li a {
+      display: block;
+      padding: 22px 0;
+      text-decoration: none;
+      color: #111;
+      font-family: 'Inter', sans-serif;
+      font-size: 28px;
+      font-weight: 400;
+    }
+    .nav-overlay ul li a:active { opacity: 0.5; }
+
+    /* ── Page content ── */
+    .page-content {
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    .center-wrap {
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      padding-top: 100px;
+    }
+
+    .hero-card {
+      background: #fff;
+      border-radius: 32px;
+      width: 300px;
+      height: 300px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 300px;
+    }
+
+    .hero-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 166px;
+      font-weight: 800;
+      line-height: 0.88;
+      letter-spacing: -4px;
+      white-space: nowrap;
+    }
+
+    .hero-title .dark { color: #111; }
+    .hero-title .blue { color: #1847d4; }
+
+    .hero-subtitle {
+      display: block;
+      padding: 22px 32px;
+      border: 1.5px solid #b0b8b0;
+      border-radius: 30px;
+      background: rgba(255,255,255,0.5);
+      font-family: 'Inter', sans-serif;
+      font-size: 36px;
+      font-weight: 400;
+      color: #111;
+      width: 100%;
+    }
+
+    /* ── AI section ── */
+    .ai-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding-top: 40px;
+      padding-bottom: 32px;
+    }
+
+    .ai-label {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .ai-label-isak {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      color: #111;
+    }
+
+    .ai-label-isak .dot {
+      color: #1847d4;
+    }
+
+    .ai-label-ai {
+      font-family: 'Instrument Serif', serif;
+      font-size: 30px;
+      font-weight: 400;
+      color: #111;
+    }
+
+    .ai-input-wrap { width: 100%; position: relative; }
+
+    .ai-input {
+      width: 100%;
+      padding: 14px 56px 14px 22px;
+      border: 1.5px solid #c5cff7;
+      border-radius: 100px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: #111;
+      background: rgba(255,255,255,0.6);
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .ai-send-btn {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #111;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .ai-send-btn:hover { background: #444; }
+
+    .ai-send-btn svg { width: 16px; height: 16px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .ai-input::placeholder { color: #888; font-family: 'Instrument Serif', serif; font-size: 20px; }
+
+    /* ── Subtitle word animation ── */
+    .hero-subtitle {
+      overflow: hidden;
+    }
+
+    #subtitleWord {
+      display: inline-block;
+      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.55s ease, filter 0.55s ease;
+    }
+
+    .ai-response {
+      width: 100%;
+      margin-top: 12px;
+      padding: 20px 24px;
+      background: #eff3ff;
+      border: 1.5px solid #c5cff7;
+      border-radius: 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: #111;
+      line-height: 1.6;
+      min-height: 100px;
+      display: none;
+    }
+
+    .ai-response.visible {
+      display: block;
+      animation: responseReveal 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes responseReveal {
+      from {
+        opacity: 0;
+        transform: translateY(8px) scaleY(0.95);
+        transform-origin: top;
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scaleY(1);
+      }
+    }
+
+    .ai-response-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px;
+    }
+
+    .ai-response-footer .footer-logo {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .ai-response-footer .ai-label-isak { font-size: 20px; }
+    .ai-response-footer .ai-label-ai   { font-size: 20px; }
+
+    .ai-thinking {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1847d4;
+      display: flex;
+      align-items: center;
+      gap: 1px;
+    }
+
+    .ai-thinking-char {
+      display: inline-block;
+      animation: charWave 1.4s ease-in-out infinite;
+    }
+
+    .ai-thinking-dot {
+      display: inline-block;
+      animation: charWave 1.4s ease-in-out infinite;
+    }
+
+    @keyframes charWave {
+      0%, 60%, 100% { transform: translateY(0); opacity: 1; }
+      30%            { transform: translateY(-4px); opacity: 0.6; }
+    }
+
+    .ai-response-text { min-height: 40px; font-size: 20px; line-height: 1.6; }
+
+    /* ── Work section ── */
+    .work-section {
+      padding-top: 72px;
+      padding-bottom: 60px;
+      width: 100%;
+    }
+
+    .work-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 20px;
+    }
+
+    .work-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 80px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -2px;
+      color: #111;
+    }
+
+    .work-view-all {
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      color: #111;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .work-view-all:hover { opacity: 0.6; }
+
+    .view-all-arrow {
+      color: #1847d4;
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .work-grid {
+      display: flex;
+      gap: 16px;
+    }
+
+    .work-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .work-col-left  { flex: 1.3; }
+    .work-col-right { flex: 1; }
+
+    .work-card {
+      background: #d9d9d9;
+      border-radius: 20px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .work-card:hover {
+      transform: scale(0.97);
+      filter: brightness(1.08);
+      cursor: pointer;
+    }
+
+    .wc-lt { height: 48vh; }
+    .wc-lb { height: 57vh; }
+    .wc-rt { height: 72vh; }
+    .wc-rb { height: 33vh; }
+    .wc-big { height: 75vh; width: 100%; margin-top: 16px; }
+
+    .work-pill {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      padding: 5px 14px;
+      border-radius: 100px;
+      font-family: 'Instrument Serif', serif;
+      font-size: 20px;
+      color: #fff;
+    }
+
+    .pill-project    { background: #22dd55; }
+    .pill-experience { background: #cc22ff; }
+    .pill-other      { background: #2266ff; }
+
+    .work-colour-code {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: #111;
+    }
+
+    .colour-code-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .colour-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .colour-code-label {
+      font-family: 'Instrument Serif', serif;
+      font-size: 20px;
+      color: #111;
+    }
+
+    /* ── Abilities section ── */
+    .abilities-section {
+      padding-top: 60px;
+      padding-bottom: 60px;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .abilities-title {
+      font-family: 'Bricolage Grotesque', sans-serif;
+      font-size: 80px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -2px;
+      color: #111;
+      margin-bottom: 24px;
+    }
+
+    .abilities-scroll {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+      -webkit-mask-image: linear-gradient(to right, black 0%, black 94%, transparent 100%);
+      mask-image: linear-gradient(to right, black 0%, black 94%, transparent 100%);
+    }
+
+    .abilities-scroll::-webkit-scrollbar { display: none; }
+
+    .ability-pill {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 52px 100px;
+      border: 1.5px solid #111;
+      border-radius: 100px;
+      font-family: 'Inter', sans-serif;
+      font-size: 52px;
+      font-weight: 400;
+      color: #111;
+      white-space: nowrap;
+    }
+
+    .abilities-track {
+      margin-top: 16px;
+      height: 1.5px;
+      width: 160px;
+      background: #111;
+      border-radius: 2px;
+    }
+
+    /* ── Eye blink ── */
+    #eye-inner {
+      transform-origin: 100px 68px;
+      animation: eyeBlink 4s ease-in-out infinite;
+    }
+
+    @keyframes eyeBlink {
+      0%, 85%, 100% { transform: scaleY(1); }
+      91%            { transform: scaleY(0.05); }
+      96%            { transform: scaleY(1); }
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 80px 40px 60px;
+      text-align: center;
+    }
+
+    .footer-text {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(48px, 7.2vw, 140px);
+      font-weight: 400;
+      color: #111;
+      line-height: 1.1;
+    }
+
+    .footer-text .eyes {
+      color: #1847d4;
+      font-style: italic;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: flex-start;
+      gap: 40px;
+      margin-top: 32px;
+      padding-bottom: 40px;
+    }
+
+    .footer-links a {
+      font-family: 'Instrument Serif', serif;
+      font-size: 20px;
+      color: #111;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .container,
+      .page-content { padding: 0 20px; }
+
+      .center-wrap { width: 100%; }
+      .hero { margin: 0 -20px; padding: 0 20px; }
+
+      .tagline { font-size: 28px !important; }
+
+      nav { padding-top: 8px; }
+      .nav-hamburger { display: flex; }
+      .nav-links { display: none; }
+
+      /* Hero */
+      .hero {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding-top: 40px;
+      }
+      .hero-card {
+        width: 120px;
+        height: 120px;
+        border-radius: 24px;
+      }
+      .hero-content {
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .hero-title {
+        font-size: clamp(44px, 13vw, 80px);
+        letter-spacing: -2px;
+        white-space: normal;
+        line-height: 0.92;
+      }
+      .hero-subtitle {
+        font-size: 18px;
+        padding: 14px 20px;
+        border-radius: 20px;
+      }
+
+      /* AI section */
+      .ai-section { padding-top: 20px; padding-bottom: 20px; }
+      .ai-label-isak,
+      .ai-label-ai { font-size: 22px; }
+
+      /* Work */
+      .work-section { padding-top: 48px; }
+      .work-title { font-size: clamp(36px, 11vw, 56px); letter-spacing: -1px; }
+      .work-view-all { font-size: 14px; }
+      .view-all-arrow { font-size: 18px; }
+      .work-grid { flex-direction: column; }
+      .work-col-left,
+      .work-col-right { flex: none; }
+      .wc-lt,
+      .wc-lb,
+      .wc-rt,
+      .wc-rb { height: 60vw; }
+      .wc-big { height: 50vw; }
+      .work-colour-code { flex-wrap: wrap; gap: 10px; }
+      .colour-code-label { font-size: 16px; }
+
+      /* Abilities */
+      .abilities-section { padding-top: 40px; padding-bottom: 40px; }
+      .abilities-title { font-size: clamp(36px, 11vw, 56px); letter-spacing: -1px; margin-bottom: 16px; }
+      .ability-pill { font-size: 26px; padding: 22px 40px; }
+
+      /* Footer */
+      .footer { padding: 48px 20px 32px; }
+      .footer-links { gap: 20px; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="container">
+      <img src="blinking_isak_logo.gif" alt="Isak." class="nav-logo">
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#work">Work</a></li>
+        <li><a href="photography.html">Photography</a></li>
+        <li><a href="https://www.linkedin.com/in/isak-powell/" target="_blank">LinkedIn ↗</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Mobile full-page nav overlay -->
+  <div class="nav-overlay" id="nav-overlay">
+    <ul>
+      <li><a href="index.html">Work</a></li>
+      <li><a href="photography.html">Photography</a></li>
+      <li><a href="https://www.linkedin.com/in/isak-powell/" target="_blank">LinkedIn ↗</a></li>
+    </ul>
+  </div>
+
+  <div class="page-content">
+    <div class="center-wrap">
+
+      <!-- Hero -->
+      <section class="hero">
+        
+        <div class="hero-content">
+          <h1 class="hero-title">
+            <span class="dark">I'm </span><span class="blue">Isak.</span>
+          </h1>
+          <p class="tagline" style="font-family:'Instrument Serif',serif;font-size:50px;font-weight:400;color:#111;line-height:1.15;margin-top:24px;">A Product Designer in Australia who <span class="hover-ul"><span class="scramble-text">designs</span><span class="tag-tip">Figma · Prototyping</span></span> and <span class="hover-ul"><span class="scramble-text">deploys</span><span class="tag-tip">Next.js · Vercel</span></span>. Utilizing the latest tools to bring your <span class="hover-ul"><span class="scramble-text">idea</span><span class="tag-tip">Strategy · Research</span></span> to life.</p>
+        </div>
+      </section>
+
+      <!-- AI Section -->
+      <section class="ai-section">
+        <div class="ai-label">
+          <span class="ai-label-isak">Isak<span class="dot">.</span></span>
+          <span class="ai-label-ai">AI</span>
+        </div>
+        <div class="ai-input-wrap">
+          <input
+            type="text"
+            class="ai-input"
+            id="aiInput"
+            placeholder=""
+          >
+          <button class="ai-send-btn" id="aiSendBtn" aria-label="Send">
+            <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+        <div class="ai-response" id="aiResponse">
+          <div class="ai-response-text" id="aiResponseText"></div>
+          <div class="ai-response-footer">
+            <div class="footer-logo ai-label">
+              <span class="ai-label-isak">Isak<span class="dot">.</span></span>
+              <span class="ai-label-ai">AI</span>
+            </div>
+            <span class="ai-thinking" id="aiThinking"><span class="ai-thinking-char" style="animation-delay:0s">T</span><span class="ai-thinking-char" style="animation-delay:.07s">h</span><span class="ai-thinking-char" style="animation-delay:.14s">i</span><span class="ai-thinking-char" style="animation-delay:.21s">n</span><span class="ai-thinking-char" style="animation-delay:.28s">k</span><span class="ai-thinking-char" style="animation-delay:.35s">i</span><span class="ai-thinking-char" style="animation-delay:.42s">n</span><span class="ai-thinking-char" style="animation-delay:.49s">g</span><span class="ai-thinking-dot" style="animation-delay:.56s">.</span><span class="ai-thinking-dot" style="animation-delay:.63s">.</span><span class="ai-thinking-dot" style="animation-delay:.70s">.</span></span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Work Section -->
+  <section id="work" class="work-section page-content">
+    <div class="work-header">
+      <h2 class="work-title">Work</h2>
+      <!-- <a href="#" class="work-view-all">View all work <span class="view-all-arrow">↗</span></a> -->
+    </div>
+
+    <div class="work-grid">
+      <!-- Left column -->
+      <div class="work-col work-col-left">
+        <a href="ripwise.html" class="work-card wc-lt" style="display:block;text-decoration:none;">
+          <video autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+            <source src="ripwise/ripwise.mp4" type="video/mp4">
+          </video>
+          <span class="work-pill pill-project">Project</span>
+        </a>
+        <a href="oddprod.html" class="work-card wc-lb" style="display:block;text-decoration:none;">
+          <img src="oddprod/1700051053556.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <span class="work-pill pill-experience">Experience</span>
+        </a>
+      </div>
+
+      <!-- Right column -->
+      <div class="work-col work-col-right">
+        <a href="cogniti-m.html" class="work-card wc-rt" style="display:block;text-decoration:none;">
+          <img src="cogniti-m/cogniti-tile.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <span class="work-pill pill-experience">Experience</span>
+        </a>
+        <a href="chronic.html" class="work-card wc-rb" style="display:block;text-decoration:none;">
+          <img src="chronic/621488553_18077176811348738_7670996084101447386_n.jpeg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+          <span class="work-pill pill-project">Project</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Full-width big card -->
+    <a href="penetrene.html" class="work-card wc-big" style="display:block;text-decoration:none;background:rgb(30,30,30);">
+      <img src="penetrene/pen.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;">
+      <span class="work-pill pill-project">Project</span>
+    </a>
+
+    <div class="work-colour-code">
+      <span style="font-family:'Instrument Serif',serif;font-size:20px;">Colour Code:</span>
+      <div class="colour-code-item">
+        <span class="colour-dot" style="background:#22dd55;"></span>
+        <span class="colour-code-label">Project</span>
+      </div>
+      <div class="colour-code-item">
+        <span class="colour-dot" style="background:#cc22ff;"></span>
+        <span class="colour-code-label">Experience</span>
+      </div>
+      <div class="colour-code-item">
+        <span class="colour-dot" style="background:#2266ff;"></span>
+        <span class="colour-code-label">Other</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Abilities Section -->
+  <section class="abilities-section page-content">
+    <h2 class="abilities-title">Abilities</h2>
+    <div class="abilities-scroll">
+      <div class="ability-pill">figma</div>
+      <div class="ability-pill">ux/ui</div>
+      <div class="ability-pill">illustrator</div>
+      <div class="ability-pill">web-design</div>
+      <div class="ability-pill">html/css/java</div>
+      <div class="ability-pill">claude</div>
+      <div class="ability-pill">ideation</div>
+      <div class="ability-pill">problem-solving</div>
+      <div class="ability-pill">passion</div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer page-content">
+    <div style="height:1.5px;margin-bottom:60px;background-image:repeating-linear-gradient(to right,#111 0px,#111 24px,transparent 24px,transparent 36px);"></div>
+    <p class="footer-text">Build a world your <span class="eyes">eyes</span> deserve</p>
+    <div class="footer-links">
+      <a href="#">CV</a>
+      <a href="https://www.linkedin.com/in/isak-powell/" target="_blank">LinkedIn</a>
+      <a href="#">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // Animated placeholder
+    const placeholders = [
+      "Why is Isak a perfect candidate for AIYEP?",
+      "What's Isak's experience?",
+      "What are Isak's skills?",
+      "What makes Isak unique?",
+      "What are Isak's weaknesses?",
+    ];
+    let phIndex = 0;
+    let phChar = 0;
+    let phDeleting = false;
+    let phPause = 0;
+    const aiInput = document.getElementById('aiInput');
+
+    function typePlaceholder() {
+      if (document.activeElement === aiInput || aiInput.value) return;
+      const current = placeholders[phIndex];
+      if (phPause > 0) { phPause--; setTimeout(typePlaceholder, 60); return; }
+      if (!phDeleting) {
+        phChar++;
+        aiInput.placeholder = current.slice(0, phChar);
+        if (phChar === current.length) { phPause = 30; phDeleting = true; }
+        setTimeout(typePlaceholder, 60);
+      } else {
+        phChar--;
+        aiInput.placeholder = current.slice(0, phChar);
+        if (phChar === 0) {
+          phDeleting = false;
+          phIndex = (phIndex + 1) % placeholders.length;
+          phPause = 8;
+        }
+        setTimeout(typePlaceholder, 30);
+      }
+    }
+    typePlaceholder();
+
+    // Width sync (desktop only)
+    function syncWidths() {
+      const hero = document.querySelector('.hero');
+      const ai = document.querySelector('.ai-section');
+      if (!hero || !ai) return;
+      if (window.innerWidth <= 768) {
+        ai.style.width = '';
+      } else {
+        ai.style.width = hero.offsetWidth + 'px';
+      }
+    }
+    document.fonts.ready.then(syncWidths);
+    window.addEventListener('resize', syncWidths);
+
+    const WORKER_URL = 'https://isak-ai.isak-powell.workers.dev/';
+    let SYSTEM_PROMPT = '';
+
+    fetch('context.md')
+      .then(r => r.text())
+      .then(md => {
+        SYSTEM_PROMPT = `You are a helpful AI assistant on Isak Powell's personal portfolio website.
+Your only job is to answer questions about Isak Powell using the facts below.
+Keep responses concise, friendly, and professional (2-4 sentences max).
+If a question isn't covered by the facts below, say so honestly rather than guessing.
+STRICT RULES:
+- Only discuss topics related to Isak Powell (his career, skills, background, personality, work).
+- If asked anything unrelated to Isak — politics, harmful content, other people, general knowledge — politely decline and redirect: "I'm only here to answer questions about Isak. Try asking about his experience or skills!"
+- Never produce offensive, inappropriate, or harmful content under any circumstances.
+
+FACTS ABOUT ISAK:
+${md}`;
+      })
+      .catch(() => {
+        SYSTEM_PROMPT = `You are a helpful AI assistant on Isak Powell's personal portfolio website. Answer questions about Isak Powell honestly. If unsure, say so.`;
+      });
+
+    const input = document.getElementById('aiInput');
+    const responseBox = document.getElementById('aiResponse');
+    const responseText = document.getElementById('aiResponseText');
+    const thinking = document.getElementById('aiThinking');
+
+    async function askGemini(query) {
+      const res = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          contents: [{ parts: [{ text: query }] }],
+          safetySettings: [
+            { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH' },
+            { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
+            { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_ONLY_HIGH' },
+            { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_ONLY_HIGH' },
+          ],
+        }),
+      });
+      const data = await res.json();
+      console.log('Gemini response:', JSON.stringify(data, null, 2));
+      if (data?.candidates?.[0]?.content?.parts?.[0]?.text) {
+        return data.candidates[0].content.parts[0].text;
+      }
+      const msg = data?.error?.message ?? 'Unknown error';
+      if (msg.toLowerCase().includes('demand') || msg.toLowerCase().includes('overload')) {
+        return "I'm a little busy right now — try again in a moment!";
+      }
+      return `API error: ${msg}`;
+    }
+
+    // Subtitle word cycle
+    const subtitleEl = document.getElementById('subtitleWord');
+    if (subtitleEl) {
+      const subtitleWords = ['Web Design', 'Product Design', 'Prototyping', 'Branding', 'UX/UI Design'];
+      let subtitleIndex = 0;
+
+      function cycleSubtitle() {
+        subtitleEl.style.transform = 'translateX(-60px)';
+        subtitleEl.style.opacity = '0';
+        subtitleEl.style.filter = 'blur(8px)';
+
+        setTimeout(() => {
+          subtitleIndex = (subtitleIndex + 1) % subtitleWords.length;
+          subtitleEl.textContent = subtitleWords[subtitleIndex];
+
+          subtitleEl.style.transition = 'none';
+          subtitleEl.style.transform = 'translateX(60px)';
+          subtitleEl.style.opacity = '0';
+          subtitleEl.style.filter = 'blur(8px)';
+
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            subtitleEl.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease, filter 0.6s ease';
+            subtitleEl.style.transform = 'translateX(0)';
+            subtitleEl.style.opacity = '1';
+            subtitleEl.style.filter = 'blur(0)';
+          }));
+        }, 480);
+      }
+
+      setInterval(cycleSubtitle, 2800);
+    }
+
+    // Abilities scroll fade
+    const abilitiesScroll = document.querySelector('.abilities-scroll');
+    function updateAbilitiesMask() {
+      const { scrollLeft, scrollWidth, clientWidth } = abilitiesScroll;
+      const atStart = scrollLeft === 0;
+      const atEnd = scrollLeft + clientWidth >= scrollWidth - 1;
+      const left = atStart ? 'black 0%' : 'transparent 0%, black 6%';
+      const right = atEnd ? 'black 100%' : 'black 94%, transparent 100%';
+      const mask = `linear-gradient(to right, ${left}, ${right})`;
+      abilitiesScroll.style.webkitMaskImage = mask;
+      abilitiesScroll.style.maskImage = mask;
+    }
+    abilitiesScroll.addEventListener('scroll', updateAbilitiesMask);
+    updateAbilitiesMask();
+
+    abilitiesScroll.addEventListener('wheel', (e) => {
+      if (e.deltaY === 0) return;
+      e.preventDefault();
+      abilitiesScroll.scrollLeft += e.deltaY;
+    }, { passive: false });
+
+    // Eye follows cursor
+    const heroEye = document.getElementById('hero-eye');
+    const eyePupil = document.getElementById('eye-pupil');
+    if (heroEye && eyePupil) {
+      const EYE_CX = 100, EYE_CY = 68, MAX_X = 18, MAX_Y = 11;
+      document.addEventListener('mousemove', (e) => {
+        const rect = heroEye.getBoundingClientRect();
+        const centerX = rect.left + rect.width  * (EYE_CX / 200);
+        const centerY = rect.top  + rect.height * (EYE_CY / 130);
+        const dx = e.clientX - centerX;
+        const dy = e.clientY - centerY;
+        const angle = Math.atan2(dy, dx);
+        const dist  = Math.sqrt(dx * dx + dy * dy);
+        const pull  = 1 - Math.exp(-dist / 120);
+        eyePupil.setAttribute('cx', EYE_CX + Math.cos(angle) * pull * MAX_X);
+        eyePupil.setAttribute('cy', EYE_CY + Math.sin(angle) * pull * MAX_Y);
+      });
+    }
+
+    async function submitQuery() {
+      if (!input.value.trim()) return;
+      const query = input.value.trim();
+
+      responseBox.classList.add('visible');
+      responseText.textContent = '';
+      thinking.style.display = 'flex';
+
+      try {
+        const answer = await askGemini(query);
+        responseText.textContent = answer;
+      } catch {
+        responseText.textContent = "Something went wrong. Please try again.";
+      } finally {
+        thinking.style.display = 'none';
+      }
+    }
+
+    document.getElementById('aiSendBtn').addEventListener('click', submitQuery);
+
+    input.addEventListener('keydown', async (e) => {
+      if (e.key !== 'Enter') return;
+      submitQuery();
+    });
+  </script>
+  <script>
+    // Word scramble on load
+    function scrambleText(el, finalText, duration) {
+      const chars = 'abcdefghijklmnopqrstuvwxyz';
+      const start = performance.now();
+      (function frame(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const resolved = Math.floor(progress * finalText.length);
+        let out = '';
+        for (let i = 0; i < finalText.length; i++) {
+          out += i < resolved ? finalText[i] : chars[Math.floor(Math.random() * chars.length)];
+        }
+        el.textContent = out;
+        if (progress < 1) requestAnimationFrame(frame);
+        else el.textContent = finalText;
+      })(start);
+    }
+    document.querySelectorAll('.scramble-text').forEach((el, i) => {
+      const text = el.textContent;
+      setTimeout(() => scrambleText(el, text, 700), 300 + i * 120);
+    });
+
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      const cursor = document.getElementById('cursor');
+      document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      });
+    } else {
+      const cursor = document.getElementById('cursor');
+      if (cursor) cursor.style.display = 'none';
+    }
+
+    const hamburger = document.getElementById('nav-hamburger');
+    const overlay = document.getElementById('nav-overlay');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      overlay.classList.toggle('open');
+      document.body.style.overflow = overlay.classList.contains('open') ? 'hidden' : '';
+    });
+
+  </script>
+</body>
+</html>

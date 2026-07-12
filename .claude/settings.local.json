@@ -10,7 +10,8 @@
       "Bash(netstat -ano)",
       "Bash(cmd /c \"taskkill /F /IM node.exe\")",
       "WebFetch(domain:isaacgrove.com)",
-      "Bash(npm install -g wrangler)"
+      "Bash(npm install -g wrangler)",
+      "Bash(claude mcp add figma --transport http https://mcp.figma.com/mcp)"
     ]
   }
 }
